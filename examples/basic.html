@@ -116,9 +116,22 @@
       var editor = new TweenTime.Editor(tweenTime, {
         el: $('#timeline-container')
       });
+      tweenTime.addTimerUpdateListener(function(ev) {
+        console.log(ev);
+      });
+      tweenTime.addTimerStatusChangedListener(function(ev) {
+        console.log(ev);
+      });
 
+      tweenTime.addTimerDurationChangedListener(function(ev) {
+        console.log(ev);
+      });
       tweenTime.addUpdateListener(function() {
         console.log('data was updated');
+      });
+
+      editor.addOnSelectListener(function(selection) {
+        console.log(selection);
       });
 
       var box_values = tweenTime.getValues('box');

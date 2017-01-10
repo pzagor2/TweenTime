@@ -56,6 +56,13 @@ class Editor {
     window.requestAnimationFrame(() => this.update());
   }
 
+  addOnSelectListener(listener) {
+    this.selectionManager.addOnSelectListener(listener);
+  }
+  removeOnSelectListner(listener) {
+    this.selectionManager.removeOnSelectListener(listener);
+  }
+
   forceItemsRender() {
     this.timeline._isDirty = true;
   }

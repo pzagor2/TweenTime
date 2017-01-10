@@ -12,6 +12,30 @@ class Core {
     this.orchestrator = new Orchestrator(this.timer, this.data);
   }
 
+  // Timer listeners
+  addTimerUpdateListener(listener) {
+    this.timer.addUpdateListener(listener);
+  }
+  removeTimerUpdateListener(listener) {
+    this.timer.removeStatusChangedListener(listener);
+  }
+
+  addTimerStatusChangedListener(listener) {
+    this.timer.addStatusChangedListener(listener);
+  }
+  removeTimerStatusChangedListener(listener) {
+    this.timer.removeUpdateListener(listener);
+  }
+
+  addTimerDurationChangedListener(listener) {
+    this.timer.addDurationChangedListener(listener);
+  }
+  removeTimerDurationChangedListener(listener) {
+    this.timer.removeDurationChangedListener(listener);
+  }
+
+
+  // Orchestrator listeners
   addUpdateListener(listener) {
     this.orchestrator.addUpdateListener(listener);
   }

@@ -17,6 +17,30 @@ export default class Timer {
     window.requestAnimationFrame(this.update);
   }
 
+  addStatusChangedListener(listener) {
+    this.statusChanged.add(listener);
+  }
+
+  removeStatusChangedListener(listener) {
+    this.statusChanged.remove(listener);
+  }
+
+  addUpdateListener(listener) {
+    this.seeked.add(listener);
+  }
+
+  removeUpdateListener(listener) {
+    this.seeked.remove(listener);
+  }
+
+  addDurationChangedListener(listener) {
+    this.durationChanged.add(listener);
+  }
+
+  removeDurationChangedListener(listener) {
+    this.durationChanged.remove(listener);
+  }
+
   getCurrentTime() {
     return this.time[0];
   }

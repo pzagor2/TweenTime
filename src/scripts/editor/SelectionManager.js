@@ -9,6 +9,14 @@ export default class SelectionManager {
     this.onSelect = new Signals.Signal();
   }
 
+  addOnSelectListener(listener) {
+    this.onSelect.add(listener);
+  }
+
+  removeOnSelectListener(listener) {
+    this.onSelect.remove(listener);
+  }
+
   select(item, addToSelection = false) {
     this.addDataRelations();
 

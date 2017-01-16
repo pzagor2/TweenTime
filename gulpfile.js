@@ -55,12 +55,6 @@ var getWebpackConfig = function() {
           commonjs: 'jquery',
           commonjs2: 'jquery',
           amd: 'jquery'
-        },
-        'lodash': {
-          root: '_',
-          commonjs: "lodash",
-          commonjs2: "lodash",
-          amd: "lodash"
         }
       }
     ],

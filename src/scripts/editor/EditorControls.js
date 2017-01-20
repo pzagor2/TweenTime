@@ -24,6 +24,23 @@ export default class EditorControls {
     $play_pause.toggleClass('icon-play', this.timer.is_playing);
   }
 
+  backward() {
+    this.timer.seek([0]);
+  }
+
+  forward() {
+    var total = this.tweenTime.getTotalDuration();
+    this.timer.seek([total * 1000]);
+  }
+
+  changeTimeEnd(seconds) {
+    this.timer.setDuration(seconds);
+  }
+
+  changeTime(seconds) {
+    this.timer.seek([seconds]);
+  }
+
   initControls() {
     var $play_pause = this.$timeline.find('.control--play-pause');
     $play_pause.click((e) => {
@@ -33,21 +50,20 @@ export default class EditorControls {
     var $bt_first = this.$timeline.find('.control--first');
     $bt_first.click((e) => {
       e.preventDefault();
-      this.timer.seek([0]);
+      backward();
     });
     var $bt_last = this.$timeline.find('.control--last');
     $bt_last.click((e) => {
       e.preventDefault();
-      var total = this.tweenTime.getTotalDuration();
-      this.timer.seek([total * 1000]);
+      forward();
     });
     this.$time.change(() => {
       var seconds = parseFloat(this.$time.val(), 10) * 1000;
-      this.timer.seek([seconds]);
+      changeTime(seconds);
     });
     this.$time_end.change(() => {
       var seconds = parseFloat(this.$time_end.val(), 10);
-      this.timer.setDuration(seconds);
+      changeTimeEnd(seconds);
     });
   }
 

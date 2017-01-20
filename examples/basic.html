@@ -21,9 +21,14 @@
         margin-top: 50px;
         background: #33b5e5;
       }
+      #playpause {
+        position: absolute;
+        z-index: 99999;
+      }
     </style>
   </head>
   <body>
+    <button id="playpause">Playpause</button>
     <div class="content-wrapper">
       <div class="box"></div>
     </div>
@@ -142,6 +147,11 @@
 
       editor.addOnSelectListener(function(selection) {
         console.log(selection);
+      });
+
+      var button = document.getElementById('playpause');
+      button.addEventListener('click', function(e) {
+        editor.playPause();
       });
 
       var box_values = tweenTime.getValues('box');

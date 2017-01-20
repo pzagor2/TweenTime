@@ -57,6 +57,27 @@ class Editor {
     window.requestAnimationFrame(() => this.update());
   }
 
+  // player functions
+  playPause() {
+    this.controls.playPause();
+  }
+
+  backward() {
+    this.controls.backward();
+  }
+
+  forward() {
+    this.controls.forward();
+  }
+
+  changeTimeEnd(seconds) {
+    this.controls.changeTimeEnd(seconds);
+  }
+
+  changeTime(seconds) {
+    this.controls.changeTime(seconds);
+  }
+
   addOnSelectListener(listener) {
     this.selectionManager.addOnSelectListener(listener);
   }

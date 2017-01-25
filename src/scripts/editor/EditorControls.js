@@ -50,20 +50,20 @@ export default class EditorControls {
     var $bt_first = this.$timeline.find('.control--first');
     $bt_first.click((e) => {
       e.preventDefault();
-      backward();
+      this.backward();
     });
     var $bt_last = this.$timeline.find('.control--last');
     $bt_last.click((e) => {
       e.preventDefault();
-      forward();
+      this.forward();
     });
     this.$time.change(() => {
       var seconds = parseFloat(this.$time.val(), 10) * 1000;
-      changeTime(seconds);
+      this.changeTime(seconds);
     });
     this.$time_end.change(() => {
       var seconds = parseFloat(this.$time_end.val(), 10);
-      changeTimeEnd(seconds);
+      this.changeTimeEnd(seconds);
     });
   }
 

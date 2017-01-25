@@ -25,10 +25,22 @@
         position: absolute;
         z-index: 99999;
       }
+      #addprop {
+        position: absolute;;
+        z-index: 99999;
+        left: 100px;
+      }
+      #totalduration {
+        position: absolute;
+        z-index: 999999;
+        left: 200px;
+      }
     </style>
   </head>
   <body>
     <button id="playpause">Playpause</button>
+    <button id="addprop">add</button>
+    <span id="totalduration">foo</span>
     <div class="content-wrapper">
       <div class="box"></div>
     </div>
@@ -127,10 +139,15 @@
         }
       ];
 
+      var totalduration = document.getElementById('totalduration');
+
       var tweenTime = new TweenTime.Core(data);
       var editor = new TweenTime.Editor(tweenTime, {
         el: $('#timeline-container')
       });
+
+      totalduration.innerHTML = tweenTime.getEndTime();
+
       tweenTime.addTimerUpdateListener(function(ev) {
         console.log(ev);
       });
@@ -140,6 +157,7 @@
 
       tweenTime.addTimerDurationChangedListener(function(ev) {
         console.log(ev);
+        totalduration.innerHTML = tweenTime.getEndTime();
       });
       tweenTime.addUpdateListener(function() {
         console.log('data was updated');

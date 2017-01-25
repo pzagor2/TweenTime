@@ -66,6 +66,10 @@ class Core {
     return this.timer.getCurrentTime();
   }
 
+  getEndTime() {
+    return this.timer.getDuration();
+  }
+
   getProperty(prop_name, item_id_or_obj) {
     // If we passed the item name get the object from it.
     let item = this.getItem(item_id_or_obj);

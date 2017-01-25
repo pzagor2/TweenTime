@@ -66,7 +66,7 @@ class Core {
     return this.timer.getCurrentTime();
   }
 
-  getEndTime() {
+  getTimerDuration() {
     return this.timer.getDuration();
   }
 

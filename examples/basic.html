@@ -152,7 +152,7 @@
         el: $('#timeline-container')
       });
 
-      totalduration.innerHTML = tweenTime.getEndTime();
+      totalduration.innerHTML = editor.getEndTime();
 
       tweenTime.addTimerUpdateListener(function(ev) {
         console.log(ev);
@@ -163,7 +163,7 @@
 
       tweenTime.addTimerDurationChangedListener(function(ev) {
         console.log(ev);
-        totalduration.innerHTML = tweenTime.getEndTime();
+        totalduration.innerHTML = editor.getEndTime();
       });
       tweenTime.addUpdateListener(function() {
         console.log('data was updated');

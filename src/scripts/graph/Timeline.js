@@ -150,6 +150,10 @@ export default class Timeline {
     this.header.setHeaderDomain(domain);
   }
 
+  getHeaderDomain() {
+    return this.header.getHeaderDomain();
+  }
+
   render(time, time_changed) {
     if (time_changed) {
       var domainLength;

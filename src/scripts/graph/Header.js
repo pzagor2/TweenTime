@@ -60,6 +60,17 @@ export default class Header {
     this.xDisplayed.domain(this.initialDomain);
   }
 
+  // domain = [0,280070]
+  setHeaderDomain(domain) {
+    this.initialDomain = domain;
+    this.setDomain(this.initialDomain);
+  }
+
+  getHeaderDomain() {
+    return this.initialDomain;
+  }
+
+
   onDurationChanged(seconds) {
     this.x.domain([0, this.timer.totalDuration]);
     this.xAxisElement.call(this.xAxis);
@@ -67,11 +78,7 @@ export default class Header {
     this.setDomain(this.initialDomain);
   }
 
-  // domain = [0,280070]
-  setHeaderDomain(domain) {
-    this.initialDomain = domain;
-    this.setDomain(this.initialDomain);
-  }
+
 
   createBrushHandle() {
     this.xAxisElement = this.svgContainer.append('g')

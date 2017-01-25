@@ -35,12 +35,18 @@
         z-index: 999999;
         left: 200px;
       }
+      #senendtime {
+        position: absolute;
+        z-index: 999999;
+        left: 300px;
+      }
     </style>
   </head>
   <body>
     <button id="playpause">Playpause</button>
     <button id="addprop">add</button>
     <span id="totalduration">foo</span>
+    <button id="senendtime">set end time</button>
     <div class="content-wrapper">
       <div class="box"></div>
     </div>
@@ -170,6 +176,11 @@
       var button = document.getElementById('playpause');
       button.addEventListener('click', function(e) {
         editor.playPause();
+      });
+
+      var endtime = document.getElementById('senendtime'); 
+      endtime.addEventListener('click', function(e) {
+        editor.setEndTime(15000);
       });
 
       var box_values = tweenTime.getValues('box');

@@ -146,6 +146,10 @@ export default class Timeline {
     this.editor.render(false, false, true);
   }
 
+  setHeaderDomain(domain) {
+    this.header.setHeaderDomain(domain);
+  }
+
   render(time, time_changed) {
     if (time_changed) {
       var domainLength;

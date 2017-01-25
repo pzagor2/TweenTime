@@ -67,6 +67,12 @@ export default class Header {
     this.setDomain(this.initialDomain);
   }
 
+  // domain = [0,280070]
+  setHeaderDomain(domain) {
+    this.initialDomain = domain;
+    this.setDomain(this.initialDomain);
+  }
+
   createBrushHandle() {
     this.xAxisElement = this.svgContainer.append('g')
       .attr('class', 'x axis')

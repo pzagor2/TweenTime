@@ -93,6 +93,10 @@ class Editor {
     this.selectionManager.select(item, addToSelection);
   }
 
+  setEndTime(miliseconds) {
+    this.timeline.setHeaderDomain([0, miliseconds]);
+  }
+
   getSelection() {
     return this.selectionManager.getSelection();
   }

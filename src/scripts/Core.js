@@ -10,6 +10,8 @@ class Core {
     this.options = options;
     this.timer = new Timer(options);
     this.orchestrator = new Orchestrator(this.timer, this.data);
+    this.onDataUpdated();
+    this.orchestrator.addUpdateListener(this.onDataUpdated.bind(this));
   }
 
   // Timer listeners
@@ -32,6 +34,19 @@ class Core {
   }
   removeTimerDurationChangedListener(listener) {
     this.timer.removeDurationChangedListener(listener);
+  }
+
+  onDataUpdated() {
+    // find last key in this.data
+    var lastKeyTime = 0;
+    for (var el of this.data) {
+      for (var prop of el.properties) {
+        lastKeyTime = prop.keys.reduce((max, key) => {
+          return Math.max(max, key.time);
+        }, lastKeyTime);
+      }
+    }
+    this.timer.setEndKeyTime(lastKeyTime);
   }
 
 

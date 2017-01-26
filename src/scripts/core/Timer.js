@@ -15,6 +15,7 @@ export default class Timer {
     this.durationChanged = new Signals.Signal();
     this.seeked = new Signals.Signal();
     this.update = this.update.bind(this);
+    this.endKeyTime = 0;
     window.requestAnimationFrame(this.update);
   }
 
@@ -53,6 +54,10 @@ export default class Timer {
   setDuration(seconds) {
     this.totalDuration = seconds * 1000;
     this.durationChanged.dispatch(seconds);
+  }
+
+  setEndKeyTime(seconds) {
+    this.endKeyTime = seconds * 1000;
   }
 
   play() {
@@ -103,6 +108,11 @@ export default class Timer {
       // Stop timer when reaching the end.
       this.time[0] = this.totalDuration;
       this.stop();
+    }
+
+    // stop if we are at last key
+    if (this.time[0] >= this.endKeyTime) {
+      this.time[0] = this.endKeyTime;
     }
 
     this.updated.dispatch(this.time[0], this.is_playing ? elapsed : 0);

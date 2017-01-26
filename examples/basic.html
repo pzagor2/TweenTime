@@ -155,14 +155,14 @@
       totalduration.innerHTML = editor.getEndTime();
 
       tweenTime.addTimerUpdateListener(function(ev) {
-        console.log(ev);
+        // console.log(ev);
       });
       tweenTime.addTimerStatusChangedListener(function(ev) {
-        console.log(ev);
+        // console.log(ev);
       });
 
       tweenTime.addTimerDurationChangedListener(function(ev) {
-        console.log(ev);
+        // console.log(ev);
         totalduration.innerHTML = editor.getEndTime();
       });
       tweenTime.addUpdateListener(function() {
@@ -189,7 +189,7 @@
         console.log('onEvent callback', name, val);
       });
       tweenTime.timer.preStatusChanged.add(() => {
-        console.log('pre status changed');
+        // console.log('pre status changed');
       });
 
       function animate() {

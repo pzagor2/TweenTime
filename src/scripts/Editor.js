@@ -70,9 +70,6 @@ class Editor {
     this.controls.forward();
   }
 
-  changeTimeEnd(seconds) {
-    this.controls.changeTimeEnd(seconds);
-  }
 
   changeTime(seconds) {
     this.controls.changeTime(seconds);
@@ -93,7 +90,8 @@ class Editor {
     this.selectionManager.select(item, addToSelection);
   }
 
-  setEndTime(miliseconds) {
+  setHeaderEndTime(seconds) {
+    var miliseconds = seconds * 1000;
     this.timeline.setHeaderDomain([0, miliseconds]);
   }
 

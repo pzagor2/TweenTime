@@ -152,6 +152,33 @@ class Core {
     }
   }
 
+  setValueEase(property, new_val, new_easing, time_in_seconds = false) {
+    let time = time_in_seconds;
+    if (time === false) {
+      time = this.timer.getCurrentTime() / 1000;
+    }
+    var key = this.getKeyAt(property, time);
+
+    if (key) {
+      // If we found a key, simply update the value.
+      key.val = new_val;
+      if (new_easing) {
+        key.ease = new_easing;
+      }
+    }
+    else {
+      // If we are not on a key but the property has other keys,
+      // create it and add it to the keys array.
+      key = {val: new_val, time: time, _property: property};
+      if (this.options.defaultEase) {
+        key.ease = this.options.defaultEase;
+      }
+      property.keys.push(key);
+      // Also sort the keys.
+      property.keys = Utils.sortKeys(property.keys);
+    }
+  }
+
   getTotalDuration() {
     return this.orchestrator.getTotalDuration();
   }

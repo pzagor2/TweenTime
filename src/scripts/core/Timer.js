@@ -111,7 +111,7 @@ export default class Timer {
     }
 
     // stop if we are at last key
-    if (this.time[0] >= this.endKeyTime) {
+    if (this.is_playing === true && this.time[0] >= this.endKeyTime) {
       this.time[0] = this.endKeyTime;
     }
 

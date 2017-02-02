@@ -7,6 +7,7 @@ export default class EditorControls {
     this.$time_end = this.$timeline.find('.control--time-end');
     this.initControls();
     this.$time_end.val(this.tweenTime.timer.getDuration());
+    this.timer.addStatusChangedListener(this.timerStatusChnageListener.bind(this));
 
     $(document).keypress((e) => {
       if (e.charCode === 32) {
@@ -16,12 +17,14 @@ export default class EditorControls {
     });
   }
 
+  timerStatusChnageListener(playing) {
+    var $play_pause = this.$timeline.find('.control--play-pause');
+    $play_pause.toggleClass('icon-pause', playing);
+    $play_pause.toggleClass('icon-play', !playing);
+  }
+
   playPause() {
-    var $play_pause;
     this.timer.toggle();
-    $play_pause = this.$timeline.find('.control--play-pause');
-    $play_pause.toggleClass('icon-pause', !this.timer.is_playing);
-    $play_pause.toggleClass('icon-play', this.timer.is_playing);
   }
 
   backward() {

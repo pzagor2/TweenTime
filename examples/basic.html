@@ -79,7 +79,7 @@
           "label": "Box 1",
           "properties": [
             {
-              "name": "x",
+              "name": "scale",
               "keys": [
                 {
                   "time": 0,
@@ -87,57 +87,8 @@
                 },
                 {
                   "time": 2,
-                  "val": 100,
+                  "val": 1,
                   "ease": "Quart.easeInOut"
-                }
-              ],
-              "val": 42
-            },
-            {
-              "name": "y",
-              "keys": [
-                {
-                  "time": 0,
-                  "val": 0,
-                  "ease": "Quad.easeOut"
-                },
-                {
-                  "time": 0.9870000000000003,
-                  "val": 50,
-                  "ease": "Cubic.easeInOut"
-                },
-                {
-                  "time": 2.006,
-                  "val": 0,
-                  "ease": "Quad.easeInOut"
-                }
-              ],
-              "val": 0
-            },
-            {
-              "name": "opacity",
-              "keys": [
-                {
-                  "time": 1.214,
-                  "val": 1
-                },
-                {
-                  "time": 3.98,
-                  "val": 0,
-                  "ease": "Quad.easeOut"
-                }
-              ],
-              "val": 1,
-              "min": 0,
-              "max": 1
-            },
-            {
-              "name": "event",
-              "type": "event",
-              "keys": [
-                {
-                  "time": 1.214,
-                  "val": "event type key frame is fired!"
                 }
               ]
             }
@@ -195,7 +146,7 @@
       function animate() {
         $('.box').css({
           'opacity': box_values.opacity,
-          'transform': 'translate(' + box_values.x + 'px, ' + box_values.y + 'px)'
+          'transform': 'scale('+box_values.scale+')',
         });
         // console.log(tweenTime.getCurrentTime());
         // console.log(tweenTime.getData());

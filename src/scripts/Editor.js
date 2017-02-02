@@ -103,6 +103,10 @@ class Editor {
     return this.selectionManager.getSelection();
   }
 
+  resetSelection() {
+    this.selectionManager.reset();
+  }
+
   onKeyAdded() {
     this.undoManager.addState();
     this.render(false, false, true);

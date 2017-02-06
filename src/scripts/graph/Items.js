@@ -14,9 +14,9 @@ export default class Items {
 
   onSelectionChanged(selection) {
     console.log('selection changed');
-    if (!selection || selection.length <= 0) {
-      d3.selectAll('.line-label').classed('line-selected', false);
-    }
+    // if (!selection || selection.length <= 0) {
+    //   d3.selectAll('.line-label').classed('line-selected', false);
+    // }
   }
 
   render() {
@@ -25,9 +25,10 @@ export default class Items {
     const editor = self.timeline.editor;
 
     const selectBar = function(data) {
+      data._dom = this.parentNode;
       self.timeline.selectionManager.select(data);
-      d3.selectAll('.line-label').classed('line-selected', false);
-      d3.select(this).classed('line-selected', true);
+      // d3.selectAll('.line-label').classed('line-selected', false);
+      // d3.select(this).classed('line-selected', true);
     };
 
 

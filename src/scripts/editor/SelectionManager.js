@@ -108,6 +108,10 @@ export default class SelectionManager {
   highlightItems() {
     d3.selectAll('.bar--selected').classed('bar--selected', false);
     d3.selectAll('.key--selected').classed('key--selected', false);
+    d3.selectAll('.line--selected').classed('line--selected', false);
+
+    // d3.selectAll('.line-label').classed('line-selected', false);
+    // d3.select(this).classed('line-selected', true);
 
     for (var i = 0; i < this.selection.length; i++) {
       var data = this.selection[i];
@@ -118,6 +122,9 @@ export default class SelectionManager {
         }
         else if (d3item.classed('key')) {
           d3item.classed('key--selected', true);
+        }
+        else if (d3item.classed('line-grp')) {
+          d3item.classed('line--selected', true);
         }
       }
     }

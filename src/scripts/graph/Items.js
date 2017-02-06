@@ -9,6 +9,14 @@ export default class Items {
     this.container = container;
     this.dy = 10 + this.timeline.margin.top;
     this.onUpdate = new Signals.Signal();
+    this.timeline.selectionManager.addOnSelectListener(this.onSelectionChanged.bind(this));
+  }
+
+  onSelectionChanged(selection) {
+    console.log('selection changed');
+    if (!selection || selection.length <= 0) {
+      d3.selectAll('.line-label').classed('line-selected', false);
+    }
   }
 
   render() {
@@ -18,7 +26,10 @@ export default class Items {
 
     const selectBar = function(data) {
       self.timeline.selectionManager.select(data);
+      d3.selectAll('.line-label').classed('line-selected', false);
+      d3.select(this).classed('line-selected', true);
     };
+
 
     const dragmove = function(d) {
       const dx = self.timeline.x.invert(d3.event.x).getTime() / 1000;
@@ -189,11 +200,28 @@ export default class Items {
         d3.event.stopPropagation();
       });
 
+
+    function wrap() {
+      const width = 250;
+      const padding = 2;
+      const _self = d3.select(this);
+      let textLength = _self.node().getComputedTextLength();
+      let text = _self.text();
+      while (textLength > width - 2 * padding && text.length > 0) {
+        text = text.slice(0, -1);
+        _self.text(text + '...');
+        textLength = _self.node().getComputedTextLength();
+      }
+    }
+
     barEnter.append('text')
       .attr('class', 'line-label')
       .attr('x', self.timeline.label_position_x + 10)
       .attr('y', 16)
-      .text((d) => {return d.label;})
+      .text((d) => {
+        return d.label;
+      })
+      .each(wrap)
       .on('click', selectBar)
       .on('mousedown', function() {
         // Don't trigger mousedown on linescontainer else

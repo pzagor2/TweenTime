@@ -202,7 +202,7 @@ export default class Items {
 
 
     function wrap() {
-      const width = 250;
+      const width = 200;
       const padding = 2;
       const _self = d3.select(this);
       let textLength = _self.node().getComputedTextLength();

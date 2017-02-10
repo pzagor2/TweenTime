@@ -136,7 +136,7 @@ export default class Properties {
       })
       .text((d) => d.name)
       .on('click', (d) => {
-        this.timeline.selectionManager.select(d);
+        this.timeline.selectionManager.select(d, true);
       });
   }
 }

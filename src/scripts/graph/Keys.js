@@ -142,7 +142,7 @@ export default class Keys {
       // Also keep a reference to the key dom element.
       key_data._dom = this;
 
-      self.timeline.selectionManager.select(key_data, addToSelection);
+      self.timeline.selectionManager.select(key_data, true);
     };
 
     var dragend = function() {

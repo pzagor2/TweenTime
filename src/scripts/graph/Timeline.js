@@ -41,7 +41,7 @@ export default class Timeline {
 
     var margin = {top: 6, right: 20, bottom: 0, left: 265};
     this.margin = margin;
-    var width = window.innerWidth - margin.left - margin.right - 500;
+    var width = window.innerWidth - margin.left - margin.right - 270;
     var height = 270 - margin.top - margin.bottom - 40;
     this.lineHeight = 20;
     this.label_position_x = -margin.left + 20;
@@ -128,7 +128,7 @@ export default class Timeline {
     window.requestAnimationFrame(() => {this.render();});
 
     window.onresize = () => {
-      var INNER_WIDTH = window.innerWidth - 500;
+      var INNER_WIDTH = window.innerWidth - 270;
       var width2 = INNER_WIDTH - margin.left - margin.right;
       this.svg.attr('width', width2 + margin.left + margin.right);
       this.svg.selectAll('.timeline__right-mask')

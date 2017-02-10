@@ -68,7 +68,7 @@ export default class PropertyNumber extends PropertyBase {
   update() {
     super.render();
     var val = this.getCurrentVal();
-    if (val.toFixed !== 'function') {
+    if (!val || val.toFixed !== 'function') {
       return;
     }
     var draggable = this.$input.data('draggable');

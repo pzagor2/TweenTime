@@ -126,6 +126,7 @@ export default class Properties {
   }
 
   renderPropertiesLabel(bar, subGrp) {
+    subGrp.selectAll('.line-label.line-label--sub.line-label--small').remove();
     subGrp.append('text')
       .attr({
         class: 'line-label line-label--sub line-label--small',

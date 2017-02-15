@@ -51,6 +51,14 @@ export default class Header {
     return new_domain;
   }
 
+  adOnBrushChangeListener(listener) {
+    this.onBrush.add(listener);
+  }
+
+  removeOnBrushChangeListener(listener) {
+    this.onBrush.remove(listener);
+  }
+
   setDomain() {
     this.brush.x(this.x).extent(this.initialDomain);
     this.svgContainer.select('.brush').call(this.brush);

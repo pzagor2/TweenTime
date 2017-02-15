@@ -95,6 +95,14 @@ class Editor {
     this.timeline.setHeaderDomain([0, miliseconds]);
   }
 
+  addHeaderEndTimeChangeListener(listener) {
+    this.timeline.addHeaderDomainChangeListener(listener);
+  }
+
+  removeHeaderEndTimeChangeListener(listener) {
+    this.timeline.removeHeaderDomainChangeListener(listener);
+  }
+
   getEndTime() {
     return this.timeline.getHeaderDomain()[1];
   }

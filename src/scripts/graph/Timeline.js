@@ -157,6 +157,14 @@ export default class Timeline {
     return this.header.getHeaderDomain();
   }
 
+  addHeaderDomainChangeListener(listener) {
+    this.header.adOnBrushChangeListener(listener);
+  }
+
+  removeHeaderDomainChangeListener(listener) {
+    this.header.removeOnBrushChangeListener(listener);
+  }
+
   render(time, time_changed) {
     if (time_changed) {
       var domainLength;

@@ -143,6 +143,10 @@
         // console.log('pre status changed');
       });
 
+      editor.addHeaderEndTimeChangeListener((newVal) => {
+        console.log(newVal);
+      });
+
       function animate() {
         $('.box').css({
           'opacity': box_values.opacity,

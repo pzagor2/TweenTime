@@ -130,7 +130,7 @@ export default class Properties {
     subGrp.append('text')
       .attr({
         class: 'line-label line-label--sub line-label--small',
-        x: this.timeline.label_position_x + 10,
+        x: this.timeline.label_position_x + 20,
         y: 15
       })
       .text((d) => d.name)

@@ -127,7 +127,11 @@ export default class Timeline {
     // First render
     window.requestAnimationFrame(() => {this.render();});
 
-    window.onresize = () => {
+    window.onresize = (ev) => {
+      // Editor marquee is triggering resize event with different target set. This makes sure we don't execute this code.
+      if (ev.target !== window) {
+        return;
+      }
       var INNER_WIDTH = window.innerWidth - 270;
       var width2 = INNER_WIDTH - margin.left - margin.right;
       this.svg.attr('width', width2 + margin.left + margin.right);

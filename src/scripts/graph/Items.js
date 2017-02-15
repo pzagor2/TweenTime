@@ -13,7 +13,7 @@ export default class Items {
   }
 
   onSelectionChanged(selection) {
-    console.log('selection changed');
+    //console.log('selection changed');
     // if (!selection || selection.length <= 0) {
     //   d3.selectAll('.line-label').classed('line-selected', false);
     // }
@@ -107,7 +107,9 @@ export default class Items {
 
     const bar_border = 1;
     const bar = this.container.selectAll('.line-grp')
-      .data(this.timeline.tweenTime.data, (d) => {return d.id;});
+      .data(this.timeline.tweenTime.data, (d) => {
+        return d.id;
+      });
 
     const barEnter = bar.enter()
       .append('g').attr('class', 'line-grp');
@@ -187,6 +189,9 @@ export default class Items {
         d3.event.stopPropagation();
       });
 
+
+
+
     bar.selectAll('.bar')
       .filter(barWithStartAndEnd)
       .attr('x', (d) => {return self.timeline.x(d.start * 1000) + bar_border;})
@@ -200,7 +205,6 @@ export default class Items {
         // it create the selection rectangle
         d3.event.stopPropagation();
       });
-
 
     function wrap() {
       const width = 200;

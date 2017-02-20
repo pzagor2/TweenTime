@@ -129,7 +129,7 @@ class Core {
   }
 
   getKeyById(property, keyId) {
-    return _.find(property.keys, key => key.id === keyId);
+    return _.find(property.keys, key => key._id === keyId);
   }
 
   setValue(property, new_val, time_in_seconds = false) {

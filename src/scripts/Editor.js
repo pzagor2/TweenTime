@@ -70,6 +70,9 @@ class Editor {
     this.controls.forward();
   }
 
+  setPlaybackTime(time) {
+    this.timer.seek([time * 1000]);
+  }
 
   changeTime(seconds) {
     this.controls.changeTime(seconds);

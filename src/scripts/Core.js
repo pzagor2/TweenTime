@@ -156,17 +156,17 @@ class Core {
     }
   }
 
-  setKeyData(property, newKeyData) {
+  setKeyData(property, key_id, value, time, easing) {
     // find old key by id
-    var key = this.getKeyById(property, newKeyData.id);
+    var key = this.getKeyById(property, key_id);
     if (key) {
-      key.val = newKeyData.val;
-      key.time = newKeyData.time;
-      key.ease = newKeyData.ease;
+      key.val = value;
+      key.time = time;
+      key.ease = easing;
     }
     else {
       // Create new key
-      setValueEase(property, newKeyData.val, newKeyData.ease, newKeyData.time);
+      setValueEase(property, value, easing, time);
     }
   }
 

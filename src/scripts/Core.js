@@ -128,6 +128,10 @@ class Core {
     return _.find(property.keys, key => key.time === time_in_seconds);
   }
 
+  getKeyById(property, keyId) {
+    return _.find(property.keys, key => key.id === keyId);
+  }
+
   setValue(property, new_val, time_in_seconds = false) {
     let time = time_in_seconds;
     if (time === false) {
@@ -149,6 +153,20 @@ class Core {
       property.keys.push(key);
       // Also sort the keys.
       property.keys = Utils.sortKeys(property.keys);
+    }
+  }
+
+  setKeyData(property, newKeyData) {
+    // find old key by id
+    var key = this.getKeyById(newKeyData.id);
+    if (key) {
+      key.val = newKeyData.val;
+      key.time = newKeyData.time;
+      key.ease = newKeyData.ease;
+    }
+    else {
+      // Create new key
+      setValueEase(property, newKeyData.val, newKeyData.ease, newKeyData.time);
     }
   }
 

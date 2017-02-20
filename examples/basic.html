@@ -40,6 +40,11 @@
         z-index: 999999;
         left: 300px;
       }
+      #setcurrenttime {
+        position: absolute;
+        z-index: 99999999;
+        left: 500px;
+      }
     </style>
   </head>
   <body>
@@ -51,6 +56,7 @@
       <div class="box"></div>
     </div>
     <div id="timeline-container"></div>
+    <button id="setcurrenttime">currenttime</button>
 
     <!-- TweenTime dependencies -->
     <script src="../src/scripts/bower_components/gsap/src/uncompressed/TweenMax.js"></script>
@@ -132,6 +138,11 @@
       var endtime = document.getElementById('senendtime');
       endtime.addEventListener('click', function(e) {
         editor.setHeaderEndTime(50);
+      });
+
+      var currenttime = document.getElementById('setcurrenttime');
+      currenttime.addEventListener('click', function(e) {
+        tweenTime.setTime(10);
       });
 
       var box_values = tweenTime.getValues('box');

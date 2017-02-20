@@ -36,6 +36,10 @@ class Core {
     this.timer.removeDurationChangedListener(listener);
   }
 
+  setPlaybackTime(time) {
+    this.timer.seek([time * 1000]);
+  }
+
   onDataUpdated() {
     // find last key in this.data
     var lastKeyTime = 0;

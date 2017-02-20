@@ -158,7 +158,7 @@ class Core {
 
   setKeyData(property, newKeyData) {
     // find old key by id
-    var key = this.getKeyById(newKeyData.id);
+    var key = this.getKeyById(property, newKeyData.id);
     if (key) {
       key.val = newKeyData.val;
       key.time = newKeyData.time;

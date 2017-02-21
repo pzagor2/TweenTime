@@ -170,7 +170,7 @@ class Core {
     }
   }
 
-  setValueEase(property, new_val, new_easing, time_in_seconds = false) {
+  setValueEase(property, new_val, new_easing, time_in_seconds = false, new_unit) {
     let time = time_in_seconds;
     if (time === false) {
       time = this.timer.getCurrentTime() / 1000;
@@ -183,11 +183,17 @@ class Core {
       if (new_easing) {
         key.ease = new_easing;
       }
+      if (new_unit) {
+        key.unit = new_unit;
+      }
     }
     else {
       // If we are not on a key but the property has other keys,
       // create it and add it to the keys array.
       key = {val: new_val, time: time, _property: property};
+      if (new_unit) {
+        key.unit = new_unit;
+      }
       if (this.options.defaultEase) {
         key.ease = this.options.defaultEase;
       }

@@ -31,6 +31,10 @@ export default class Items {
       // d3.select(this).classed('line-selected', true);
     };
 
+    const selectProperty = function(data) {
+      self.timeline.selectionManager.select(data.properties[0]);
+    };
+
 
     const dragmove = function(d) {
       const dx = self.timeline.x.invert(d3.event.x).getTime() / 1000;
@@ -200,6 +204,7 @@ export default class Items {
       })
       .call(drag)
       .on('click', selectBar)
+      .on('dblclick', selectProperty)
       .on('mousedown', function() {
         // Don't trigger mousedown on linescontainer else
         // it create the selection rectangle
@@ -228,6 +233,7 @@ export default class Items {
       })
       .each(wrap)
       .on('click', selectBar)
+      .on('dblclick', selectProperty)
       .on('mousedown', function() {
         // Don't trigger mousedown on linescontainer else
         // it create the selection rectangle

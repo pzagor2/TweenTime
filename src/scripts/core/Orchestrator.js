@@ -152,6 +152,9 @@ export default class Orchestrator {
           }
           else {
             val[propName] = first_key ? first_key.val : property.val;
+            if (val[propName] === 'auto') {
+              val[propName] = '';
+            }
           }
 
           var tween = TweenMax.to(data_target, tween_duration, val);
@@ -180,6 +183,9 @@ export default class Orchestrator {
               }
               else {
                 val[propName] = next_key.val;
+                if (val[propName] === 'auto') {
+                  val[propName] = '';
+                }
               }
 
               tween = TweenMax.to(data_target, tween_duration, val);

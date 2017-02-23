@@ -194,6 +194,9 @@ class Core {
       if (new_unit) {
         key.unit = new_unit;
       }
+      if (new_easing) {
+        key.ease = new_easing;
+      }
       if (this.options.defaultEase) {
         key.ease = this.options.defaultEase;
       }

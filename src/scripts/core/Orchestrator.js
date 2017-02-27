@@ -67,9 +67,14 @@ export default class Orchestrator {
       if (property.keys.length) {
         // Take the value of the first key as initial value.
         // this.todo: update this when the value of the first key change. (when rebuilding the timeline, simply delete item.values before item._timeline)
-        property.val = property.keys[0].val;
+        property.val = property.keys[0].val + property.keys[0].unit;
+        // property.data = {
+        //   value: property.keys[0].val,
+        //   unit: property.keys[0].unit
+        // };
       }
       item.values[property.name] = property.val;
+      // item.values[property.name + 'Data'] = property.data;
     }
   }
 
@@ -151,7 +156,7 @@ export default class Orchestrator {
             val.css[propName] = first_key ? first_key.val : property.val;
           }
           else {
-            val[propName] = first_key ? first_key.val : property.val;
+            val[propName] = first_key ? first_key.val + first_key.unit : property.val;
             if (val[propName] === 'auto') {
               val[propName] = '';
             }
@@ -182,7 +187,7 @@ export default class Orchestrator {
                 val.css[propName] = next_key.val;
               }
               else {
-                val[propName] = next_key.val;
+                val[propName] = next_key.val + next_key.unit;
                 if (val[propName] === 'auto') {
                   val[propName] = '';
                 }

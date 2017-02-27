@@ -85,16 +85,24 @@
           "label": "Kako se kaj imas ne se mi spakovat dej ne seri, ker ti ni nic jasno dej pej dam",
           "properties": [
             {
-              "name": "scale",
+              "name": "top",
               "keys": [
                 {
                   "time": 0,
-                  "val": 0
+                  "val": 0,
+                  "unit": "px"
                 },
                 {
-                  "time": 2,
-                  "val": 1,
-                  "ease": "Quart.easeInOut"
+                  "time": 10,
+                  "val": 500,
+                  "ease": "Quart.easeInOut",
+                  "unit": "px"
+                },
+                {
+                  "time": 20,
+                  "val": 1000,
+                  "ease": "Quart.easeInOut",
+                  "unit": "%"
                 }
               ]
             }
@@ -159,6 +167,7 @@
       });
 
       function animate() {
+        console.log(box_values.top);
         $('.box').css({
           'opacity': box_values.opacity,
           'transform': 'scale('+box_values.scale+')',

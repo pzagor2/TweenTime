@@ -118,4 +118,14 @@ export default class Utils {
     }
     return EASE_POINTS['Quad.easeInOut'].slice(0);
   }
+
+  static getValueFromKey(key) {
+    let result = key.val;
+
+    if (key.unit) {
+      result = result + key.unit;
+    }
+
+    return result;
+  }
 }

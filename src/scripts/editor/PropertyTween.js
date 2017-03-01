@@ -43,7 +43,7 @@ export default class PropertyTween {
     var data = {
       id: this.instance_property.name + '_tween',
       val: this.key_val.ease,
-      options: ['Linear.easeNone'],
+      options: ['Linear.easeNone', 'Linear.instant'],
       selected: function() {
         if (this.toString() === self.key_val.ease) {
           return 'selected';

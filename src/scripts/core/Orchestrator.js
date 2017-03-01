@@ -136,7 +136,7 @@ export default class Orchestrator {
 
           var tween_time = 0;
           if (first_key) {
-            tween_time = Math.min(-1, first_key.time - 0.1);
+            tween_time = first_key.time;
           }
 
           var tween_duration = 0;
@@ -171,6 +171,9 @@ export default class Orchestrator {
             if (key_index < property.keys.length - 1) {
               var next_key = property.keys[key_index + 1];
               tween_duration = next_key.time - key.time;
+              if (next_key.ease === 'Linear.instant') {
+                tween_duration = 0;
+              }
 
               val = {};
               easing = this.getEasing(next_key);
@@ -189,7 +192,11 @@ export default class Orchestrator {
               }
 
               tween = TweenMax.to(data_target, tween_duration, val);
-              propertyTimeline.add(tween, key.time);
+              var time = key.time;
+              if (next_key.ease === 'Linear.instant') {
+                time = next_key.time;
+              }
+              propertyTimeline.add(tween, time);
             }
           }
 

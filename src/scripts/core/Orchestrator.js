@@ -2,15 +2,16 @@ let Signals = require('js-signals');
 let TweenMax = require('TweenMax');
 let TimelineMax = require('TimelineMax');
 let Quad = require('Quad');
-
 import Utils from './Utils';
 import BezierEasing from 'bezier-easing';
+let _ = require('lodash');
 
 export default class Orchestrator {
   constructor(timer, data) {
     this.update = this.update.bind(this);
     this.timer = timer;
     this.data = data;
+    this.mergeProperties(data);
     this.mainTimeline = new TimelineMax({paused: true});
     this.onUpdate = new Signals.Signal();
     this.timer.updated.add(this.update);
@@ -28,6 +29,7 @@ export default class Orchestrator {
 
   setData(data) {
     this.data = data;
+    this.mergeProperties(data);
   }
 
   getTotalDuration() {
@@ -64,12 +66,77 @@ export default class Orchestrator {
     for (var property_key = 0; property_key < item.properties.length; property_key++) {
       var property = item.properties[property_key];
       if (property.keys.length) {
-        // Take the value of the first key as initial value.
-        // this.todo: update this when the value of the first key change. (when rebuilding the timeline, simply delete item.values before item._timeline)
-        property.val = Utils.getValueFromKey(property.keys[0]);
+        if (typeof property.keys[0].val === 'object') {
+          // go trough all properties in val object
+          _.forOwn(property.keys[0].val, function(value, key) {
+            if (!property.val) {
+              property.val = {};
+            }
+            property.val[key] = Utils.getValueFromKey(value);
+          });
+        }
+        else {
+          // Take the value of the first key as initial value.
+          // this.todo: update this when the value of the first key change. (when rebuilding the timeline, simply delete item.values before item._timeline)
+          property.val = Utils.getValueFromKey(property.keys[0]);
+        }
       }
       item.values[property.name] = property.val;
-      // item.values[property.name + 'Data'] = property.data;
+    }
+  }
+
+  getKeyAt(property, time_in_seconds) {
+    return _.find(property.keys, key => key.time === time_in_seconds);
+  }
+
+  mergeProperty(item) {
+    var self = this;
+    // get all properties with the same parent
+    let groups = Utils.groupArray(item.properties, 'parent');
+    _.remove(groups, x => {
+      return !x.key;
+    });
+    for (var i = 0; i < groups.length; i++) {
+      var group = groups[i];
+      // find existing merged property
+      var newProperty = item.properties.find(function(pr) {
+        return pr.name === group.key;
+      });
+      if (!newProperty) {
+        newProperty = {};
+        item.properties.push(newProperty);
+      }
+      newProperty.name = group.key;
+      //newProperty.keys = [];
+      // Make first set of keys
+      var valueName = group.values[0].name;
+      var keys = group.values[0].keys.map(function(k) {
+        var newKey = self.getKeyAt(newProperty, k.time) || { val: {} };
+        newKey.time = k.time;
+        newKey.val[valueName] = { val: k.val, unit: k.unit };
+        if (!newKey.ease) {
+          newKey.ease = k.ease;
+        }
+        return newKey;
+      });
+      newProperty.keys = keys;
+      // Add additional vals with the same time
+      for (var j = 1; j < group.values.length; j++) {
+        var value = group.values[j];
+        valueName = value.name;
+        for (var p = 0; p < newProperty.keys.length; p++) {
+          var propKey = newProperty.keys[p];
+          if (value.keys[p]) {
+            propKey.val[valueName] = { val: value.keys[p].val, unit: value.keys[p].unit };
+          }
+        }
+      }
+    }
+  }
+
+  mergeProperties(data) {
+    for (var i = 0; i < data.length; i++) {
+      this.mergeProperty(data[i]);
     }
   }
 
@@ -81,6 +148,7 @@ export default class Orchestrator {
 
     for (let i = 0; i < this.data.length; i++) {
       let item = this.data[i];
+
       if (!item._domHelper) {
         this.initSpecialProperties(item);
       }
@@ -150,6 +218,13 @@ export default class Orchestrator {
             val.css = {};
             val.css[propName] = first_key ? first_key.val : property.val;
           }
+          else if (property.name === 'position') {
+            val.top = Utils.getValueFromKey(first_key.val.top);
+            val.left = Utils.getValueFromKey(first_key.val.left);
+            val.right = Utils.getValueFromKey(first_key.val.left);
+            val.bottom = Utils.getValueFromKey(first_key.val.left);
+            data_target = item.values.position;
+          }
           else {
             val[propName] = first_key ? Utils.getValueFromKey(first_key) : property.val;
             if (val[propName] === 'auto') {
@@ -183,6 +258,13 @@ export default class Orchestrator {
               if (property.css) {
                 val.css = {};
                 val.css[propName] = next_key.val;
+              }
+              else if (property.name === 'position') {
+                val.top = Utils.getValueFromKey(next_key.val.top);
+                val.left = Utils.getValueFromKey(next_key.val.left);
+                val.right = Utils.getValueFromKey(next_key.val.right);
+                val.bottom = Utils.getValueFromKey(next_key.val.bottom);
+                data_target = item.values.position;
               }
               else {
                 val[propName] = Utils.getValueFromKey(next_key);

@@ -120,6 +120,9 @@ export default class Utils {
   }
 
   static getValueFromKey(key) {
+    if (!key || key.val === '') {
+      return 'initial';
+    }
     let result = key.val;
 
     if (key.unit) {
@@ -134,12 +137,12 @@ export default class Utils {
       let v = key instanceof Function ? key(x) : x[key];
       let el = rv.find((r) => r && r.key === v);
       if (el) {
-          el.values.push(x);
+        el.values.push(x);
       } else {
-          rv.push({
-              key: v,
-              values: [x]
-          });
+        rv.push({
+          key: v,
+          values: [x]
+        });
       }
       return rv;
     }, []);

@@ -221,8 +221,8 @@ export default class Orchestrator {
           else if (property.name === 'position') {
             val.top = Utils.getValueFromKey(first_key.val.top);
             val.left = Utils.getValueFromKey(first_key.val.left);
-            val.right = Utils.getValueFromKey(first_key.val.left);
-            val.bottom = Utils.getValueFromKey(first_key.val.left);
+            val.right = Utils.getValueFromKey(first_key.val.right);
+            val.bottom = Utils.getValueFromKey(first_key.val.bottom);
             data_target = item.values.position;
           }
           else {

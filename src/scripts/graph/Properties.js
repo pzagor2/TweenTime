@@ -10,15 +10,21 @@ export default class Properties {
   }
 
   propertyVal(d) {
+    let filtered = [];
     if (d.properties) {
       if (this.timeline.editor.options.showEmptyProperties) {
-        return d.properties;
+        filtered =  d.properties;
       }
       else {
-        return d.properties.filter((prop) => {return prop.keys.length;});
+        filtered =  d.properties.filter((prop) => {return prop.keys.length;});
       }
+
+      // filter out properties with parent set
+      filtered = filtered.filter(p => {
+        return !p.parent;
+      });
     }
-    return [];
+    return filtered;
   }
 
   propertyKey(d) {
@@ -35,6 +41,7 @@ export default class Properties {
     var editor = this.timeline.editor;
     var core = editor.tweenTime;
 
+
     var properties = bar.selectAll('.line-item').data((d) => this.propertyVal(d), this.propertyKey);
     var subGrp = properties.enter()
       .append('g')
@@ -42,7 +49,6 @@ export default class Properties {
 
     // Save subGrp in a variable for use in Errors.coffee
     self.subGrp = subGrp;
-
 
     properties.attr('transform', (d, i) => this.setSublineHeight(d, i));
 
@@ -106,10 +112,10 @@ export default class Properties {
       });
 
     bar.selectAll('.line-item').attr('display', function(property) {
-      if (!property._line.collapsed) {
-        return 'block';
+      if (property._line.collapsed) {
+        return 'none';
       }
-      return 'none';
+      return 'block';
     });
 
     // Hide click handler if curve editor mode.

@@ -125,7 +125,7 @@ class Core {
   }
 
   getKeyAt(property, time_in_seconds) {
-    return _.find(property.keys, key => key.time === time_in_seconds);
+    return this.orchestrator.getKeyAt(property, time_in_seconds);
   }
 
   getKeyById(property, keyId) {
@@ -160,14 +160,25 @@ class Core {
     // find old key by id
     var key = this.getKeyById(property, key_id);
     if (key) {
-      key.val = value;
-      key.time = time;
-      key.ease = easing;
+      if (value) {
+        key.val = value;
+      }
+      if (time) {
+        key.time = time;
+      }
+      if (easing) {
+        key.ease = easing;
+      }
     }
     else {
       // Create new key
       setValueEase(property, value, easing, time);
     }
+  }
+
+  mergeItem(elementId) {
+    var item = this.getItem(elementId);
+    this.orchestrator.mergeProperty(item);
   }
 
   setValueEase(property, new_val, new_easing, time_in_seconds = false, new_unit) {
@@ -194,11 +205,11 @@ class Core {
       if (new_unit) {
         key.unit = new_unit;
       }
-      if (new_easing) {
-        key.ease = new_easing;
-      }
       if (this.options.defaultEase) {
         key.ease = this.options.defaultEase;
+      }
+      if (new_easing) {
+        key.ease = new_easing;
       }
       property.keys.push(key);
       // Also sort the keys.

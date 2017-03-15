@@ -228,6 +228,7 @@ export default class Orchestrator {
           else if (property.name === 'size') {
             val.width = Utils.getValueFromKey(first_key.val.width);
             val.height = Utils.getValueFromKey(first_key.val.height);
+            data_target = item.values.size;
           }
           else {
             val[propName] = first_key ? Utils.getValueFromKey(first_key) : property.val;
@@ -273,6 +274,7 @@ export default class Orchestrator {
               else if (property.name === 'size') {
                 val.width = Utils.getValueFromKey(next_key.val.width);
                 val.height = Utils.getValueFromKey(next_key.val.height);
+                data_target = item.values.size;
               }
               else {
                 val[propName] = Utils.getValueFromKey(next_key);

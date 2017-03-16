@@ -19,6 +19,10 @@ export default class Orchestrator {
     this.onEvent = new Signals.Signal();
   }
 
+
+  tirggerUpdateListener() {
+    this.onUpdate.dispatch();
+  }
   addUpdateListener(listener) {
     this.onUpdate.add(listener);
   }

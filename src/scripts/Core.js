@@ -59,6 +59,10 @@ class Core {
     this.orchestrator.removeUpdateListener(listener);
   }
 
+  tirggerUpdateListener() {
+    this.orchestrator.tirggerUpdateListener();
+  }
+
   setData(data) {
     this.data = data;
     this.orchestrator.setData(data);

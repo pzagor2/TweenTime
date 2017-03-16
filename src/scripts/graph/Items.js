@@ -160,6 +160,8 @@ export default class Items {
         if (d.properties) {
           var visibleProperties = _.filter(d.properties, function(prop) {
             return prop.keys.length;
+          }).filter(function(p) {
+            return !p.parent;
           });
           numProperties = visibleProperties.length;
         }

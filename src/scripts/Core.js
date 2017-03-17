@@ -132,6 +132,20 @@ class Core {
     return this.orchestrator.getKeyAt(property, time_in_seconds);
   }
 
+  getPrecedingKey(property, time) {
+    var key;
+    if (property.keys.length === 1) {
+      key = property.keys[0];
+    }
+    else {
+      key = _.findLast(property.keys, function(k) {
+        return time > k.time;
+      });
+    }
+
+    return key;
+  }
+
   getKeyById(property, keyId) {
     return _.find(property.keys, key => key._id === keyId);
   }

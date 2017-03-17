@@ -227,6 +227,10 @@ export default class Orchestrator {
             val.left = Utils.getValueFromKey(first_key.val.left);
             val.right = Utils.getValueFromKey(first_key.val.right);
             val.bottom = Utils.getValueFromKey(first_key.val.bottom);
+            val.marginLeft = Utils.getValueFromKey(first_key.val.marginLeft);
+            val.marginRight = Utils.getValueFromKey(first_key.val.marginRight);
+            val.marginTop = Utils.getValueFromKey(first_key.val.marginTop);
+            val.marginBottom = Utils.getValueFromKey(first_key.val.marginBottom);
             data_target = item.values.position;
           }
           else if (property.name === 'size') {
@@ -273,6 +277,10 @@ export default class Orchestrator {
                 val.left = Utils.getValueFromKey(next_key.val.left);
                 val.right = Utils.getValueFromKey(next_key.val.right);
                 val.bottom = Utils.getValueFromKey(next_key.val.bottom);
+                val.marginLeft = Utils.getValueFromKey(next_key.val.marginLeft);
+                val.marginRight = Utils.getValueFromKey(next_key.val.marginRight);
+                val.marginTop = Utils.getValueFromKey(next_key.val.marginTop);
+                val.marginBottom = Utils.getValueFromKey(next_key.val.marginBottom);
                 data_target = item.values.position;
               }
               else if (property.name === 'size') {

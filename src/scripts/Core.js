@@ -181,7 +181,7 @@ class Core {
       if (value) {
         key.val = value;
       }
-      if (time) {
+      if (time !== undefined || time !== null) {
         key.time = time;
       }
       if (easing) {

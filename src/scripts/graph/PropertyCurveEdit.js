@@ -59,14 +59,14 @@ export default class PropertyCurveEdit {
       return [{points: [], name: d.name}];
     }
     // preprocess min and max for keys.
-    d._min = d3.min(d.keys, (k) => k.val);
-    d._max = d3.max(d.keys, (k) => k.val);
+    d._min = d3.min(d.keys, (k) => k.value);
+    d._max = d3.max(d.keys, (k) => k.value);
 
     d._curvePoints = [];
     // set raw points, without bezier control yet.
     d.keys.forEach((key) => {
       const x = this.timeline.x(key.time * 1000);
-      const y = this.normalizeVal(key.val, d._min, d._max, 0, MAX_HEIGHT);
+      const y = this.normalizeVal(key.value, d._min, d._max, 0, MAX_HEIGHT);
       d._curvePoints.push({x, y, ease: key.ease, id: `curve1-${key._id}`, _key: key});
     });
 
@@ -248,9 +248,9 @@ export default class PropertyCurveEdit {
 
 
       // Get point A value top in px.
-      const valueApx = self.normalizeVal(prev._key.val, propertyData._min, propertyData._max, 0, MAX_HEIGHT);
+      const valueApx = self.normalizeVal(prev._key.value, propertyData._min, propertyData._max, 0, MAX_HEIGHT);
       // Same for B key value
-      const valueBpx = self.normalizeVal(point._key.val, propertyData._min, propertyData._max, 0, MAX_HEIGHT);
+      const valueBpx = self.normalizeVal(point._key.value, propertyData._min, propertyData._max, 0, MAX_HEIGHT);
 
       var dy = (mouse[1] - valueApx) / (valueBpx - valueApx);
 

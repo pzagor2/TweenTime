@@ -159,12 +159,12 @@ class Core {
 
     if (key) {
       // If we found a key, simply update the value.
-      key.val = new_val;
+      key.value = new_val;
     }
     else {
       // If we are not on a key but the property has other keys,
       // create it and add it to the keys array.
-      key = {val: new_val, time: time, _property: property};
+      key = {value: new_val, time: time, _property: property};
       if (this.options.defaultEase) {
         key.ease = this.options.defaultEase;
       }
@@ -179,7 +179,7 @@ class Core {
     var key = this.getKeyById(property, key_id);
     if (key) {
       if (value) {
-        key.val = value;
+        key.value = value;
       }
       if (time !== undefined || time !== null) {
         key.time = time;
@@ -208,7 +208,7 @@ class Core {
 
     if (key) {
       // If we found a key, simply update the value.
-      key.val = new_val;
+      key.value = new_val;
       if (new_easing) {
         key.ease = new_easing;
       }
@@ -219,7 +219,7 @@ class Core {
     else {
       // If we are not on a key but the property has other keys,
       // create it and add it to the keys array.
-      key = {val: new_val, time: time, _property: property};
+      key = {value: new_val, time: time, _property: property};
       if (new_unit) {
         key.unit = new_unit;
       }

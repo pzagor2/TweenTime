@@ -120,10 +120,10 @@ export default class Utils {
   }
 
   static getValueFromKey(key) {
-    if (!key || key.val === '') {
+    if (!key || key.value === '') {
       return 'initial';
     }
-    let result = key.val;
+    let result = key.value;
 
     if (key.unit) {
       result = result + key.unit;

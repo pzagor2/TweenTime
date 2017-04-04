@@ -67,7 +67,7 @@ export default class Properties {
         const prevKey = Utils.getPreviousKey(d.keys, dx);
         // set the value to match the previous key if we found one
         if (prevKey) {
-          def = prevKey.val;
+          def = prevKey.value;
         }
         //d._line = lineValue;
         const newKey = {

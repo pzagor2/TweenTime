@@ -38,7 +38,7 @@ export default class PropertyBase {
 
     // if we selected a key simply return it's value
     if (this.key_val) {
-      return this.key_val.val;
+      return this.key_val.value;
     }
     if (this.lineData.values !== undefined && this.lineData.values[prop_name]) {
       return this.lineData.values[prop_name];
@@ -61,7 +61,7 @@ export default class PropertyBase {
 
       if (current_key) {
         // if there is a key update it
-        current_key.val = current_value;
+        current_key.value = current_value;
       }
       else {
         // add a new key
@@ -70,7 +70,7 @@ export default class PropertyBase {
     }
     else {
       // There is no keys, simply update the property value (for data saving)
-      this.instance_property.val = current_value;
+      this.instance_property.value = current_value;
       // Also directly set the lineData value.
       this.lineData.values[this.instance_property.name] = current_value;
       // Simply update the custom object with new values.
@@ -107,7 +107,7 @@ export default class PropertyBase {
     var currentTime = this.timer.getCurrentTime() / 1000;
     var key = {
       time: currentTime,
-      val: val
+      value: val
     };
     if (core.options.defaultEase) {
       key.ease = core.options.defaultEase;

@@ -93,7 +93,7 @@ export default class UndoManager {
               }
               else {
                 keys[key_key].time = key.time;
-                keys[key_key].val = key.val;
+                keys[key_key].value = key.value;
                 keys[key_key].ease = key.ease;
               }
             }

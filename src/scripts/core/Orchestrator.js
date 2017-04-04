@@ -59,7 +59,7 @@ export default class Orchestrator {
 
       if (property.css) {
         // If property is a css or a color value apply it to the domHelper element.
-        item._domHelper.style[property.name] = property.val;
+        item._domHelper.style[property.name] = property.value;
       }
     }
   }
@@ -70,22 +70,22 @@ export default class Orchestrator {
     for (var property_key = 0; property_key < item.properties.length; property_key++) {
       var property = item.properties[property_key];
       if (property.keys.length) {
-        if (typeof property.keys[0].val === 'object') {
+        if (typeof property.keys[0].value === 'object') {
           // go trough all properties in val object
-          _.forOwn(property.keys[0].val, function(value, key) {
-            if (!property.val) {
-              property.val = {};
+          _.forOwn(property.keys[0].value, function(value, key) {
+            if (!property.value) {
+              property.value = {};
             }
-            property.val[key] = Utils.getValueFromKey(value);
+            property.value[key] = Utils.getValueFromKey(value);
           });
         }
         else {
           // Take the value of the first key as initial value.
           // this.todo: update this when the value of the first key change. (when rebuilding the timeline, simply delete item.values before item._timeline)
-          property.val = Utils.getValueFromKey(property.keys[0]);
+          property.value = Utils.getValueFromKey(property.keys[0]);
         }
       }
-      item.values[property.name] = property.val;
+      item.values[property.name] = property.value;
     }
   }
 
@@ -115,9 +115,9 @@ export default class Orchestrator {
       // Make first set of keys
       var valueName = group.values[0].name;
       var keys = group.values[0].keys.map(function(k) {
-        var newKey = self.getKeyAt(newProperty, k.time) || { val: {} };
+        var newKey = self.getKeyAt(newProperty, k.time) || { value: {} };
         newKey.time = k.time;
-        newKey.val[valueName] = { val: k.val, unit: k.unit };
+        newKey.value[valueName] = { value: k.value, unit: k.unit };
         if (!newKey.ease) {
           newKey.ease = k.ease;
         }
@@ -131,7 +131,7 @@ export default class Orchestrator {
         for (var p = 0; p < newProperty.keys.length; p++) {
           var propKey = newProperty.keys[p];
           if (value.keys[p]) {
-            propKey.val[valueName] = { val: value.keys[p].val, unit: value.keys[p].unit };
+            propKey.value[valueName] = { value: value.keys[p].value, unit: value.keys[p].unit };
           }
         }
       }
@@ -197,7 +197,7 @@ export default class Orchestrator {
 
           // If there is no key stop there and set value to default.
           if (!property.keys.length) {
-            item.values[property.name] = property.val;
+            item.values[property.name] = property.value;
             continue;
           }
 
@@ -220,26 +220,26 @@ export default class Orchestrator {
           if (property.css) {
             data_target = item._domHelper;
             val.css = {};
-            val.css[propName] = first_key ? first_key.val : property.val;
+            val.css[propName] = first_key ? first_key.value : property.value;
           }
           else if (property.name === 'position') {
-            val.top = Utils.getValueFromKey(first_key.val.top);
-            val.left = Utils.getValueFromKey(first_key.val.left);
-            val.right = Utils.getValueFromKey(first_key.val.right);
-            val.bottom = Utils.getValueFromKey(first_key.val.bottom);
-            val.marginLeft = Utils.getValueFromKey(first_key.val.marginLeft);
-            val.marginRight = Utils.getValueFromKey(first_key.val.marginRight);
-            val.marginTop = Utils.getValueFromKey(first_key.val.marginTop);
-            val.marginBottom = Utils.getValueFromKey(first_key.val.marginBottom);
+            val.top = Utils.getValueFromKey(first_key.value.top);
+            val.left = Utils.getValueFromKey(first_key.value.left);
+            val.right = Utils.getValueFromKey(first_key.value.right);
+            val.bottom = Utils.getValueFromKey(first_key.value.bottom);
+            val.marginLeft = Utils.getValueFromKey(first_key.value.marginLeft);
+            val.marginRight = Utils.getValueFromKey(first_key.value.marginRight);
+            val.marginTop = Utils.getValueFromKey(first_key.value.marginTop);
+            val.marginBottom = Utils.getValueFromKey(first_key.value.marginBottom);
             data_target = item.values.position;
           }
           else if (property.name === 'size') {
-            val.width = Utils.getValueFromKey(first_key.val.width);
-            val.height = Utils.getValueFromKey(first_key.val.height);
+            val.width = Utils.getValueFromKey(first_key.value.width);
+            val.height = Utils.getValueFromKey(first_key.value.height);
             data_target = item.values.size;
           }
           else {
-            val[propName] = first_key ? Utils.getValueFromKey(first_key) : property.val;
+            val[propName] = first_key ? Utils.getValueFromKey(first_key) : property.value;
             if (val[propName] === 'auto') {
               val[propName] = '';
             }
@@ -270,22 +270,22 @@ export default class Orchestrator {
               val.ease = BezierEasing(...easing);
               if (property.css) {
                 val.css = {};
-                val.css[propName] = next_key.val;
+                val.css[propName] = next_key.value;
               }
               else if (property.name === 'position') {
-                val.top = Utils.getValueFromKey(next_key.val.top);
-                val.left = Utils.getValueFromKey(next_key.val.left);
-                val.right = Utils.getValueFromKey(next_key.val.right);
-                val.bottom = Utils.getValueFromKey(next_key.val.bottom);
-                val.marginLeft = Utils.getValueFromKey(next_key.val.marginLeft);
-                val.marginRight = Utils.getValueFromKey(next_key.val.marginRight);
-                val.marginTop = Utils.getValueFromKey(next_key.val.marginTop);
-                val.marginBottom = Utils.getValueFromKey(next_key.val.marginBottom);
+                val.top = Utils.getValueFromKey(next_key.value.top);
+                val.left = Utils.getValueFromKey(next_key.value.left);
+                val.right = Utils.getValueFromKey(next_key.value.right);
+                val.bottom = Utils.getValueFromKey(next_key.value.bottom);
+                val.marginLeft = Utils.getValueFromKey(next_key.value.marginLeft);
+                val.marginRight = Utils.getValueFromKey(next_key.value.marginRight);
+                val.marginTop = Utils.getValueFromKey(next_key.value.marginTop);
+                val.marginBottom = Utils.getValueFromKey(next_key.value.marginBottom);
                 data_target = item.values.position;
               }
               else if (property.name === 'size') {
-                val.width = Utils.getValueFromKey(next_key.val.width);
-                val.height = Utils.getValueFromKey(next_key.val.height);
+                val.width = Utils.getValueFromKey(next_key.value.width);
+                val.height = Utils.getValueFromKey(next_key.value.height);
                 data_target = item.values.size;
               }
               else {
@@ -332,7 +332,7 @@ export default class Orchestrator {
         for (let key_index = 0; key_index < property.keys.length; key_index++) {
           let key = property.keys[key_index];
           if (seconds_elapsed > 0 && key.time <= seconds && key.time > seconds - seconds_elapsed) {
-            this.onEvent.dispatch(property.name, key.val);
+            this.onEvent.dispatch(property.name, key.value);
           }
         }
       }

@@ -109,7 +109,9 @@ class Core {
     if (!item) {
       return undefined;
     }
-
+    if (!item.values) {
+      this.orchestrator.initItemValues(item);
+    }
     return item.values;
   }
 

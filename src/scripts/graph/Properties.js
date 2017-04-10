@@ -72,7 +72,7 @@ export default class Properties {
         //d._line = lineValue;
         const newKey = {
           time: dx,
-          val: def,
+          value: def,
           _property: d
         };
         if (core.options.defaultEase) {

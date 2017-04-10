@@ -135,13 +135,14 @@ export default class Header {
       dx = Math.max(0, dx);
 
       var timeMatch = false;
-      if (event.shiftKey) {
-        var time = dx / 1000;
-        timeMatch = Utils.getClosestTime(tweenTime.data, time, '---non-existant', false, false, 0.3);
-        if (timeMatch !== false) {
-          timeMatch = timeMatch * 1000;
-        }
+
+      // Grid lock (event.shiftKey)
+      var time = dx / 1000;
+      timeMatch = Utils.getClosestTime(tweenTime.data, time, '---non-existant', false, false, 0.3);
+      if (timeMatch !== false) {
+        timeMatch = timeMatch * 1000;
       }
+
       if (timeMatch === false) {
         timeMatch = dx;
       }

@@ -136,9 +136,9 @@ export default class Header {
 
       var timeMatch = false;
 
-      // Grid lock (event.shiftKey)
+      // Key grid lock.(event.shiftKey)
       var time = dx / 1000;
-      timeMatch = Utils.getClosestTime(tweenTime.data, time, '---non-existant', false, false, 0.3);
+      timeMatch = Utils.getClosestTime(tweenTime.data, time, '---non-existant', false, false, 0.05);
       if (timeMatch !== false) {
         timeMatch = timeMatch * 1000;
       }

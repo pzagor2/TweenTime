@@ -118,6 +118,14 @@ export default class Items {
     const barEnter = bar.enter()
       .append('g').attr('class', 'line-grp');
 
+    // Create highlight layer
+    barEnter.append('rect')
+      .attr('class', 'highlight-layer')
+      .attr('x', -300)
+      .attr('y', 0)
+      .attr('width', window.innerWidth - self.timeline.label_position_x)
+      .attr('height', 22);
+
     const barContainerRight = barEnter.append('svg')
       .attr({
         class: 'timeline__right-mask',
@@ -196,8 +204,6 @@ export default class Items {
       });
 
 
-
-
     bar.selectAll('.bar')
       .filter(barWithStartAndEnd)
       .attr('x', (d) => {return self.timeline.x(d.start * 1000) + bar_border;})
@@ -272,6 +278,9 @@ export default class Items {
         }
         return self.timeline.x(self.timeline.timer.totalDuration + 100);
       });
+
+
+
 
     bar.exit().remove();
 

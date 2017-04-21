@@ -115,8 +115,24 @@ export default class SelectionManager {
 
     for (var i = 0; i < this.selection.length; i++) {
       var data = this.selection[i];
+      // find dom element from all .line-grps
+      var allGrps = d3.selectAll('.line-grp')[0];
+      var foudnNode = _.find(allGrps, (item) => {
+        var itemData = item.__data__;
+        if (itemData.id === data.id) {
+          return true;
+        }
+      });
+
+
+      // var domEl = allGrps[foundNodeIndex];
+      if (!data._dom) {
+        data._dom = foudnNode;
+      }
+
       if (data._dom) {
         var d3item = d3.select(data._dom);
+
         if (d3item.classed('bar')) {
           d3item.classed('bar--selected', true);
         }

@@ -60,14 +60,16 @@ export default class Timeline {
       .attr('width', width + margin.left + margin.right)
       .attr('height', 600);
 
+
+    this.linesContainer = this.svg.append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
     this.svgContainer = this.svg.append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     this.svgContainerTime = this.svg.append('g')
       .attr('transform', 'translate(' + margin.left + ',0)');
 
-    this.linesContainer = this.svg.append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     this.header = new Header(editor, this.timer, this.initialDomain, this.tweenTime, width, margin);
     this.timeIndicator = new TimeIndicator(this, this.svgContainerTime);

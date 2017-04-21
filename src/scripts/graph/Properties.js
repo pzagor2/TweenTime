@@ -132,6 +132,7 @@ export default class Properties {
   }
 
   renderPropertiesLabel(bar, subGrp) {
+    var _this = this;
     subGrp.selectAll('.line-label.line-label--sub.line-label--small').remove();
     subGrp.append('text')
       .attr({
@@ -140,8 +141,9 @@ export default class Properties {
         y: 15
       })
       .text((d) => d.name)
-      .on('click', (d) => {
-        this.timeline.selectionManager.select(d);
+      .on('click', function(d) {
+        d._dom = this.parentElement.parentElement;
+        _this.timeline.selectionManager.select(d);
       });
   }
 }

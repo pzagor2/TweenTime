@@ -212,7 +212,7 @@ export default class Items {
       })
       .call(drag)
       .on('click', selectBar)
-      .on('dblclick', selectProperty)
+      // .on('dblclick', selectProperty)
       .on('mousedown', function() {
         // Don't trigger mousedown on linescontainer else
         // it create the selection rectangle
@@ -241,7 +241,7 @@ export default class Items {
       })
       .each(wrap)
       .on('click', selectBar)
-      .on('dblclick', selectProperty)
+      // .on('dblclick', selectProperty)
       .on('mousedown', function() {
         // Don't trigger mousedown on linescontainer else
         // it create the selection rectangle

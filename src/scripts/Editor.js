@@ -1,6 +1,6 @@
 var tpl_timeline = require('./templates/timeline.tpl.html');
 import Timeline from './graph/Timeline';
-import PropertiesEditor from './editor/PropertiesEditor';
+// import PropertiesEditor from './editor/PropertiesEditor';
 import EditorMenu from './editor/EditorMenu';
 import EditorControls from './editor/EditorControls';
 import SelectionManager from './editor/SelectionManager';
@@ -31,9 +31,9 @@ class Editor {
     this.exporter = new Exporter(this);
     this.timeline = new Timeline(this, options);
 
-    this.propertiesEditor = new PropertiesEditor(this, this.selectionManager);
-    this.propertiesEditor.keyAdded.add(this.onKeyAdded);
-    this.propertiesEditor.keyRemoved.add(this.onKeyRemoved);
+    // this.propertiesEditor = new PropertiesEditor(this, this.selectionManager);
+    // this.propertiesEditor.keyAdded.add(this.onKeyAdded);
+    // this.propertiesEditor.keyRemoved.add(this.onKeyRemoved);
 
     this.menu = new EditorMenu(this.tweenTime, this.$timeline, this);
     if (this.options.onMenuCreated !== undefined) {
@@ -142,7 +142,7 @@ class Editor {
     }
     this.timeline.render(time2, time_changed);
     this.controls.render(time2, time_changed);
-    this.propertiesEditor.render(time2, time_changed);
+    // this.propertiesEditor.render(time2, time_changed);
   }
 
   update() {

@@ -180,7 +180,7 @@ class Core {
     // find old key by id
     var key = this.getKeyById(property, key_id);
     if (key) {
-      if (value) {
+      if (value !== undefined || value !== null) {
         key.value = value;
       }
       if (time !== undefined || time !== null) {

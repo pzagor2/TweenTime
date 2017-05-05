@@ -123,8 +123,8 @@ class Editor {
     this.render(false, false, true);
   }
 
-  onKeyRemoved(item) {
-    this.selectionManager.removeItem(item._id);
+  onKeyRemoved(id) {
+    this.selectionManager.removeItem(id);
     this.undoManager.addState();
     if (this.selectionManager.selection.length) {
       this.selectionManager.triggerSelect();

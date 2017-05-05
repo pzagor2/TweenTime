@@ -93,6 +93,13 @@ export default class Orchestrator {
     return _.find(property.keys, key => key.time === time_in_seconds);
   }
 
+  getKeyWithId(property, keyId) {
+    return _.find(property.keys, key => {
+      let id = key._id || key.id;
+      return id === keyId;
+    });
+  }
+
   mergeProperty(item) {
     var self = this;
     // get all properties with the same parent

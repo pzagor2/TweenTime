@@ -134,6 +134,10 @@ class Core {
     return this.orchestrator.getKeyAt(property, time_in_seconds);
   }
 
+  getKeyWithId(property, keyId) {
+    return this.orchestrator.getKeyWithId(property, keyId);
+  }
+
   getPrecedingKey(property, time) {
     var key;
     if (property.keys.length === 1) {

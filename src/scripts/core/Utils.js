@@ -147,4 +147,8 @@ export default class Utils {
       return rv;
     }, []);
   }
+
+  static roundTimeFloat(time) {
+    return Math.round( time * 10 ) / 10;
+  }
 }

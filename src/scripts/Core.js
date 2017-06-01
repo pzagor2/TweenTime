@@ -209,6 +209,7 @@ class Core {
     let time = time_in_seconds;
     if (time === false) {
       time = this.timer.getCurrentTime() / 1000;
+      // time = Utils.roundTimeFloat(time);
     }
     var key = this.getKeyAt(property, time);
 

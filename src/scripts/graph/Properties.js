@@ -63,7 +63,11 @@ export default class Properties {
         let def = d.default ? d.default : 0;
         const mouse = d3.mouse(this);
         let dx = self.timeline.x.invert(mouse[0]);
-        dx = dx.getTime() / 1000;
+        if (dx < 0) {
+          dx = 0;
+        }
+        dx =  dx.getTime() / 1000;
+        dx = Utils.roundTimeFloat(dx);
         const prevKey = Utils.getPreviousKey(d.keys, dx);
         // set the value to match the previous key if we found one
         if (prevKey) {

@@ -39,6 +39,10 @@ export default class Keys {
       dx = dx.getTime();
       dx = dx / 1000 - currentDomainStart / 1000;
       dx = key_data.time + dx;
+      dx = Utils.roundTimeFloat(dx);
+      if (dx < 0) {
+        drag.dragend();
+      }
 
       var selection = self.timeline.selectionManager.getSelection();
       var selection_first_time = false;

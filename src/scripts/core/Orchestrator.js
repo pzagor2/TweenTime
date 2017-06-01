@@ -90,7 +90,11 @@ export default class Orchestrator {
   }
 
   getKeyAt(property, time_in_seconds) {
-    return _.find(property.keys, key => key.time === time_in_seconds);
+    return _.find(property.keys, key => {
+      var keyTimeRounded = Math.round( key.time * 10 ) / 10;
+      var timeInSecondRounded = Math.round( time_in_seconds * 10 ) / 10;
+      return keyTimeRounded === timeInSecondRounded;
+    });
   }
 
   getKeyWithId(property, keyId) {

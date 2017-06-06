@@ -125,7 +125,7 @@ export default class Utils {
     }
     let result = key.value;
 
-    if (key.unit) {
+    if (key.unit && key.value !== 'auto') {
       result = result + key.unit;
     }
 

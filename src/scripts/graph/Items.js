@@ -253,12 +253,14 @@ export default class Items {
       .attr('x', self.timeline.label_position_x - 10)
       .attr('y', 16)
       .on('click', function(d) {
-        d.collapsed = !d.collapsed;
+        var foundItem = _.find(self.timeline.tweenTime.data, { id: d.id });
+        foundItem.collapsed = !foundItem.collapsed;
         self.onUpdate.dispatch();
       });
 
     bar.selectAll('.line__toggle').text(function(d) {
-      if (d.collapsed) {
+      var foundItem = _.find(self.timeline.tweenTime.data, { id: d.id });
+      if (foundItem.collapsed) {
         return '▸';
       }
       return '▾';

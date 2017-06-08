@@ -56,15 +56,21 @@ export default class Timeline {
       .tickSize(-height, 0)
       .tickFormat(Utils.formatMinutes);
 
+    this.svgGrid = d3.select(editor.$timeline.get(0)).select('.timeline__main').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', 600)
+      .attr('class', 'time-grid-container');
+
     this.svg = d3.select(editor.$timeline.get(0)).select('.timeline__main').append('svg')
       .attr('width', width + margin.left + margin.right)
-      .attr('height', 600);
+      .attr('height', 600)
+      .attr('class', 'lines-time-container');
 
 
     this.linesContainer = this.svg.append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-    this.svgContainer = this.svg.append('g')
+    this.svgContainer = this.svgGrid.append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     this.svgContainerTime = this.svg.append('g')
@@ -108,6 +114,7 @@ export default class Timeline {
       .tickSize(-this.items.dy, 0)
       .tickFormat('')
       .orient('top');
+
 
     this.xGrid = this.svgContainer.append('g')
       .attr('class', 'x axis grid')
@@ -209,6 +216,7 @@ export default class Timeline {
       this.xGrid.call(this.xAxisGrid);
       this.xAxisElement.call(this.xAxis);
       this.svg.attr('height', height);
+      this.svgGrid.attr('height', height);
       this.timeIndicator.updateHeight(height);
     }
   }

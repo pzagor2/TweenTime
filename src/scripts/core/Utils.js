@@ -138,7 +138,8 @@ export default class Utils {
       let el = rv.find((r) => r && r.key === v);
       if (el) {
         el.values.push(x);
-      } else {
+      }
+			else {
         rv.push({
           key: v,
           values: [x]

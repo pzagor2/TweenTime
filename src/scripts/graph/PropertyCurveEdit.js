@@ -120,9 +120,6 @@ export default class PropertyCurveEdit {
   }
 
   render() {
-    const self = this;
-    const tweenTime = self.timeline.tweenTime;
-
     const bar = this.container.selectAll('.curve-grp')
       .data(this.timeline.tweenTime.data, (d) => d.id);
 
@@ -131,7 +128,7 @@ export default class PropertyCurveEdit {
 
     // Show curves only if curve editor mode.
     bar.attr('display', (d) => {
-      const selection = self.timeline.selectionManager.getSelection();
+      const selection = this.timeline.selectionManager.getSelection();
 
       if (this.timeline.editor.curveEditEnabled) {
         // Check if this item is in selection.
@@ -156,7 +153,7 @@ export default class PropertyCurveEdit {
     const properties = bar.selectAll('.curves-preview')
       .data(propVal1, propKey1)
       .attr('display', (d) => {
-        const selection = self.timeline.selectionManager.getSelection();
+        const selection = this.timeline.selectionManager.getSelection();
         for (let i = 0; i < selection.length; i++) {
           const selectedItem = selection[i];
           if (selectedItem.name && selectedItem.name === d.name) {
@@ -227,11 +224,8 @@ export default class PropertyCurveEdit {
     };
 
     const dragHandleMove = function(d) {
-      var sourceEvent = d3.event.sourceEvent;
-
       const point = d.handle._next;
       const prev = d.handle._prev;
-      const handle = d.handle;
       const key = point._key;
       const propertyData = prev._key._property;
       const itemData = propertyData._line;
@@ -241,7 +235,6 @@ export default class PropertyCurveEdit {
       const timeBetweenPrevNext = key.time - prev._key.time;
 
       const mouse = d3.mouse(this);
-      const old_time = key.time;
       let dx = self.timeline.x.invert(mouse[0]);
       dx = dx.getTime() / 1000;
       dx = (dx - prev._key.time) / timeBetweenPrevNext;
@@ -257,8 +250,8 @@ export default class PropertyCurveEdit {
       // dx is restricted to 0 - 1.
       dx = Math.min(1, Math.max(0, dx));
 
-      ease[handle._Xindex] = dx;
-      ease[handle._Yindex] = dy;
+      ease[d.handle._Xindex] = dx;
+      ease[d.handle._Yindex] = dy;
       point._key.ease = ease;
 
       propertyData._isDirty = true;
@@ -266,15 +259,14 @@ export default class PropertyCurveEdit {
       self.onCurveUpdated.dispatch();
     };
 
-    const dragHandleEnd = (d) => {
-
-    };
+    // const dragHandleEnd = (d) => {
+    // };
 
     const dragHandle = d3.behavior.drag()
       .origin((d) => {return d;})
       .on('drag', dragHandleMove)
-      .on('dragstart', dragHandleStart)
-      .on('dragend', dragHandleEnd);
+      .on('dragstart', dragHandleStart);
+      // .on('dragend', dragHandleEnd);
 
     handleLine.enter()
       .append('line')

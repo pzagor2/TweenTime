@@ -1,5 +1,3 @@
-let d3 = require('d3');
-
 export default class KeysPreview {
   constructor(timeline, container) {
     this.timeline = timeline;

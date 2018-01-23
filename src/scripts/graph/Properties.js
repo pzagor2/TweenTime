@@ -73,7 +73,7 @@ export default class Properties {
         if (prevKey) {
           def = prevKey.value;
         }
-        //d._line = lineValue;
+        // d._line = lineValue;
         const newKey = {
           time: dx,
           value: def,

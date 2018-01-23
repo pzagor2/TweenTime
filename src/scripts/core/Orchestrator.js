@@ -1,9 +1,9 @@
 let Signals = require('js-signals');
 let TweenMax = require('TweenMax');
 let TimelineMax = require('TimelineMax');
-let Quad = require('Quad');
+let Quad = require('Quad');  // can I remove this?
 import Utils from './Utils';
-import BezierEasing from 'bezier-easing';
+import bezierEasing from 'bezier-easing';
 let _ = require('lodash');
 
 export default class Orchestrator {
@@ -122,7 +122,7 @@ export default class Orchestrator {
         item.properties.push(newProperty);
       }
       newProperty.name = group.key;
-      //newProperty.keys = [];
+      // newProperty.keys = [];
       // Make first set of keys
       var valueName = group.values[0].name;
       var keys = group.values[0].keys.map(function(k) {
@@ -226,7 +226,7 @@ export default class Orchestrator {
           var val = {};
           var easing = this.getEasing();
           // Use spread to convert array to multiple arguments.
-          val.ease = BezierEasing(...easing);
+          val.ease = bezierEasing(...easing);
 
           if (property.css) {
             data_target = item._domHelper;
@@ -278,7 +278,7 @@ export default class Orchestrator {
               easing = this.getEasing(next_key);
 
               // Use spread to convert array to multiple arguments.
-              val.ease = BezierEasing(...easing);
+              val.ease = bezierEasing(...easing);
               if (property.css) {
                 val.css = {};
                 val.css[propName] = next_key.value;

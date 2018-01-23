@@ -9,15 +9,15 @@ export default class Items {
     this.container = container;
     this.dy = 10 + this.timeline.margin.top;
     this.onUpdate = new Signals.Signal();
-    this.timeline.selectionManager.addOnSelectListener(this.onSelectionChanged.bind(this));
+    // this.timeline.selectionManager.addOnSelectListener(this.onSelectionChanged.bind(this));
   }
 
-  onSelectionChanged(selection) {
-    //console.log('selection changed');
-    // if (!selection || selection.length <= 0) {
-    //   d3.selectAll('.line-label').classed('line-selected', false);
-    // }
-  }
+  // onSelectionChanged(selection) {
+  //   console.log('selection changed');
+  //   if (!selection || selection.length <= 0) {
+  //     d3.selectAll('.line-label').classed('line-selected', false);
+  //   }
+  // }
 
   render() {
     const self = this;
@@ -31,9 +31,9 @@ export default class Items {
       // d3.select(this).classed('line-selected', true);
     };
 
-    const selectProperty = function(data) {
-      self.timeline.selectionManager.select(data.properties[0]);
-    };
+    // const selectProperty = function(data) {
+    //   self.timeline.selectionManager.select(data.properties[0]);
+    // };
 
 
     const dragmove = function(d) {
@@ -280,9 +280,6 @@ export default class Items {
         }
         return self.timeline.x(self.timeline.timer.totalDuration + 100);
       });
-
-
-
 
     bar.exit().remove();
 

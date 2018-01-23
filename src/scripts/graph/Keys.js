@@ -41,7 +41,8 @@ export default class Keys {
       dx = key_data.time + dx;
       dx = Utils.roundTimeFloat(dx);
       if (dx < 0) {
-        drag.dragend();
+        drag.dragend();  // eslint-disable-line no-use-before-define
+                         // because of recursive calling
       }
 
       var selection = self.timeline.selectionManager.getSelection();
@@ -180,7 +181,7 @@ export default class Keys {
         }
         if (d.ease) {
           if (Array.isArray(d.ease)) {
-            cls += ' easeCustom'
+            cls += ' easeCustom';
           }
           else {
             var ease = d.ease.split('.');
@@ -188,7 +189,6 @@ export default class Keys {
               cls += ' ' + ease[1];
             }
           }
-
         }
         else {
           // If no easing specified, the it's the default Quad.easeOut

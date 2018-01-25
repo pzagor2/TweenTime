@@ -120,6 +120,8 @@ export default class PropertyCurveEdit {
   }
 
   render() {
+    const self = this;
+
     const bar = this.container.selectAll('.curve-grp')
       .data(this.timeline.tweenTime.data, (d) => d.id);
 
@@ -128,7 +130,7 @@ export default class PropertyCurveEdit {
 
     // Show curves only if curve editor mode.
     bar.attr('display', (d) => {
-      const selection = this.timeline.selectionManager.getSelection();
+      const selection = self.timeline.selectionManager.getSelection();
 
       if (this.timeline.editor.curveEditEnabled) {
         // Check if this item is in selection.
@@ -153,7 +155,7 @@ export default class PropertyCurveEdit {
     const properties = bar.selectAll('.curves-preview')
       .data(propVal1, propKey1)
       .attr('display', (d) => {
-        const selection = this.timeline.selectionManager.getSelection();
+        const selection = self.timeline.selectionManager.getSelection();
         for (let i = 0; i < selection.length; i++) {
           const selectedItem = selection[i];
           if (selectedItem.name && selectedItem.name === d.name) {
@@ -175,7 +177,7 @@ export default class PropertyCurveEdit {
       .attr({
         class: 'curves-preview',
         transform: 'translate(0,10)',
-        width: window.innerWidth - self.timeline.label_position_x,
+        width: window.innerWidth - this.timeline.label_position_x,
         height: 300
       });
 
@@ -241,9 +243,9 @@ export default class PropertyCurveEdit {
 
 
       // Get point A value top in px.
-      const valueApx = self.normalizeVal(prev._key.value, propertyData._min, propertyData._max, 0, MAX_HEIGHT);
+      const valueApx = this.normalizeVal(prev._key.value, propertyData._min, propertyData._max, 0, MAX_HEIGHT);
       // Same for B key value
-      const valueBpx = self.normalizeVal(point._key.value, propertyData._min, propertyData._max, 0, MAX_HEIGHT);
+      const valueBpx = this.normalizeVal(point._key.value, propertyData._min, propertyData._max, 0, MAX_HEIGHT);
 
       var dy = (mouse[1] - valueApx) / (valueBpx - valueApx);
 
@@ -256,7 +258,7 @@ export default class PropertyCurveEdit {
 
       propertyData._isDirty = true;
       itemData._isDirty = true;
-      self.onCurveUpdated.dispatch();
+      this.onCurveUpdated.dispatch();
     };
 
     // const dragHandleEnd = (d) => {

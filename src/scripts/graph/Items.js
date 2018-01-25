@@ -219,8 +219,12 @@ export default class Items {
         d3.event.stopPropagation();
       });
 
-    function wrap() {
-      const width = 200;
+    function indentWidthOf(d) {
+      return d.indentLevel ? d.indentLevel * 16 : 0;
+    }
+
+    function wrap(d) {
+      const width = 200 - indentWidthOf(d);
       const padding = 2;
       const _self = d3.select(this);
       let textLength = _self.node().getComputedTextLength();
@@ -234,7 +238,9 @@ export default class Items {
 
     barEnter.append('text')
       .attr('class', 'line-label')
-      .attr('x', self.timeline.label_position_x + 10)
+      .attr('x', (d) => {
+        return self.timeline.label_position_x + 10 + indentWidthOf(d);
+      })
       .attr('y', 16)
       .text((d) => {
         return d.label;
@@ -250,7 +256,9 @@ export default class Items {
 
     barEnter.append('text')
       .attr('class', 'line__toggle')
-      .attr('x', self.timeline.label_position_x - 10)
+      .attr('x', (d) => {
+        return self.timeline.label_position_x - 10 + indentWidthOf(d);
+      })
       .attr('y', 16)
       .on('click', function(d) {
         var foundItem = _.find(self.timeline.tweenTime.data, { id: d.id });

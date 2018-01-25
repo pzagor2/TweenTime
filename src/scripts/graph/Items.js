@@ -219,9 +219,9 @@ export default class Items {
         d3.event.stopPropagation();
       });
 
-		function indentWidthOf(d) {
-			return d.indentLevel ? d.indentLevel * 16 : 0;
-		}
+    function indentWidthOf(d) {
+      return d.indentLevel ? d.indentLevel * 16 : 0;
+    }
 
     function wrap(d) {
       const width = 200 - indentWidthOf(d);
@@ -239,8 +239,8 @@ export default class Items {
     barEnter.append('text')
       .attr('class', 'line-label')
       .attr('x', (d) => {
-				return self.timeline.label_position_x + 10 + indentWidthOf(d);
-			})
+        return self.timeline.label_position_x + 10 + indentWidthOf(d);
+      })
       .attr('y', 16)
       .text((d) => {
         return d.label;
@@ -257,8 +257,8 @@ export default class Items {
     barEnter.append('text')
       .attr('class', 'line__toggle')
       .attr('x', (d) => {
-				return self.timeline.label_position_x - 10 + indentWidthOf(d);
-			})
+        return self.timeline.label_position_x - 10 + indentWidthOf(d);
+      })
       .attr('y', 16)
       .on('click', function(d) {
         var foundItem = _.find(self.timeline.tweenTime.data, { id: d.id });

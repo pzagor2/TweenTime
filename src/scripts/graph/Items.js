@@ -236,12 +236,18 @@ export default class Items {
       }
     }
 
+    const lineLabelStyle = [
+      self.timeline.fontFamily && `font-family: ${self.timeline.fontFamily}`,
+      self.timeline.fontSize && `font-size: ${self.timeline.fontSize}px`
+    ].filter((d) => d).join(';');
     barEnter.append('text')
       .attr('class', 'line-label')
+      .attr('style', lineLabelStyle)
       .attr('x', (d) => {
         return self.timeline.label_position_x + 10 + indentWidthOf(d);
       })
-      .attr('y', 16)
+      .attr('y', self.timeline.lineHeight / 2)
+      .attr('dy', '0.3em')  // centering
       .text((d) => {
         return d.label;
       })

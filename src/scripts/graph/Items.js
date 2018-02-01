@@ -109,6 +109,10 @@ export default class Items {
       })
       .on('drag', dragmove);
 
+    this.container.selectAll('.line-grp')
+			.data([])
+			.exit().remove()
+
     const bar_border = 1;
     const bar = this.container.selectAll('.line-grp')
       .data(this.timeline.tweenTime.data, (d) => {

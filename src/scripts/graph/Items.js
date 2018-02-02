@@ -113,7 +113,7 @@ export default class Items {
     // there should be a better way tho
     this.container.selectAll('.line-grp')
       .data([])
-      .exit().remove()
+      .exit().remove();
 
     const bar_border = 1;
     const bar = this.container.selectAll('.line-grp')

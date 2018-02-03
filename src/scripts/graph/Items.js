@@ -272,7 +272,8 @@ export default class Items {
       .attr('x', (d) => {
         return self.timeline.label_position_x - 10 + indentWidthOf(d);
       })
-      .attr('y', 16)
+      .attr('y', self.timeline.lineHeight / 2)
+      .attr('dy', '0.3em')  // centering
       .on('click', function(d) {
         var foundItem = _.find(self.timeline.tweenTime.data, { id: d.id });
         foundItem.collapsed = !foundItem.collapsed;

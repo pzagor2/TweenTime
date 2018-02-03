@@ -252,7 +252,7 @@ export default class Keys {
     keys.attr('transform', function(d) {
       var dx = self.timeline.x(d.time * 1000);
       dx = parseInt(dx, 10);
-      var dy = 10;
+      var dy = self.timeline.lineHeight / 2;
       return 'translate(' + dx + ',' + dy + ')';
     });
 

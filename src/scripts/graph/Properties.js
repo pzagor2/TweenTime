@@ -142,7 +142,8 @@ export default class Properties {
       .attr({
         class: 'line-label line-label--sub line-label--small',
         x: this.timeline.label_position_x + 20,
-        y: 15
+        y: this.timeline.lineHeight / 2,
+        dy: '0.3em'  // centering
       })
       .text((d) => d.name)
       .on('click', function(d) {

@@ -135,6 +135,7 @@ export default class Items {
     const barContainerRight = barEnter.append('svg')
       .attr({
         class: 'timeline__right-mask',
+        y: self.timeline.lineHeight / 2 - 12,
         width: window.innerWidth - self.timeline.label_position_x
       });
 

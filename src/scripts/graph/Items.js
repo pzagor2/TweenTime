@@ -122,7 +122,9 @@ export default class Items {
       });
 
     const barEnter = bar.enter()
-      .append('g').attr('class', 'line-grp');
+      .append('g')
+      .attr('class', 'line-grp')
+      .attr('data-element-type', d => d.elementType || 'unknown');
 
     // Create highlight layer
     barEnter.append('rect')
@@ -251,7 +253,7 @@ export default class Items {
       .attr('class', 'line-label')
       .attr('style', lineLabelStyle)
       .attr('x', (d) => {
-        return self.timeline.label_position_x + 10 + indentWidthOf(d);
+        return self.timeline.label_position_x + indentWidthOf(d) + self.timeline.fontSize + 10;
       })
       .attr('y', self.timeline.lineHeight / 2)
       .attr('dy', '0.3em')  // centering
@@ -266,6 +268,15 @@ export default class Items {
         // it create the selection rectangle
         d3.event.stopPropagation();
       });
+
+    barEnter.append('rect')
+      .attr('class', 'line-colorSample')
+      .attr('x', (d) => {
+        return self.timeline.label_position_x + indentWidthOf(d) + 5;
+      })
+      .attr('y', (self.timeline.lineHeight - self.timeline.fontSize) / 2)
+      .attr('width', self.timeline.fontSize)
+      .attr('height', self.timeline.fontSize)
 
     barEnter.append('text')
       .attr('class', 'line__toggle')

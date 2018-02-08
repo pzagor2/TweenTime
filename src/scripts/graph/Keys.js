@@ -197,6 +197,18 @@ export default class Keys {
         return cls;
       });
 
+    keys.append('rect')
+      .attr({
+        class: 'key-transitionBar',
+        fill: 'white',
+        height: 12,
+        width: (key) => {
+          var duration = key.duration || 0;
+          return self.timeline.x(duration * 1000);
+        },
+        y: -6,
+      })
+
     var grp_linear = key_grp.append('g')
       .attr('class', 'ease-linear');
     grp_linear.append('path')

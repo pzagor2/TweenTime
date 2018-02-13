@@ -6,6 +6,7 @@ export default class Properties {
   constructor(timeline) {
     this.timeline = timeline;
     this.onKeyAdded = new Signals.Signal();
+    this.onKeyRemoved = new Signals.Signal();
     this.subGrp = false;
   }
 
@@ -100,6 +101,8 @@ export default class Properties {
 
     this.renderPropertiesLabel(bar, properties);
 
+    this.keyframeToggle = this.renderKeyframeToggle(properties);
+
     subGrp.append('line')
       .attr('class', 'line-separator--secondary')
       .attr('x1', -self.timeline.margin.left)
@@ -149,5 +152,66 @@ export default class Properties {
         d._dom = this.parentElement.parentElement;
         _this.timeline.selectionManager.select(d);
       });
+  }
+
+  renderKeyframeToggle(subGrp) {
+    const keyframeToggle = subGrp.append('svg')
+      .attr('class', 'keyframe-toggle')
+      .attr('x', -10)
+      .attr('y', 10)
+      .attr('stroke', 'black')
+      .attr('fill', 'blue')
+      .attr('fill-opacity', this.keyframeFillOpacity.bind(this))
+      .on('click', (d) => {
+        const millis = this.timeline.timer.last_time;
+        const seconds = millis / 1000;
+        const idx = d.keys.findIndex(k => k.time * 1000 === millis);
+
+        if(idx !== -1) {
+          const [removedKey] = d.keys.splice(idx, 1);
+          d._line._isDirty = true;
+          this.onKeyRemoved.dispatch(removedKey);
+        }
+        else {
+          const def = d.default ? d.default : 0;
+          const prevKey = Utils.getPreviousKey(d.keys, seconds);
+          const newKey = {
+            time: seconds,
+            value: prevKey ? prevKey.value : def,
+            _property: d
+          };
+
+          const core = this.timeline.editor.tweenTime;
+          if(core.options.defaultEase) {
+            newKey.ease = core.options.defaultEase;
+          }
+
+          d.keys.push(newKey);
+          d.keys = Utils.sortKeys(d.keys);
+
+          d._line._isDirty = true;
+          this.onKeyAdded.dispatch(newKey);
+        }
+      });
+
+    keyframeToggle.append('path')
+      .attr('d', 'M 0 -6 L 6 0 L 0 6');
+    keyframeToggle.append('path')
+      .attr('d', 'M 0 -6 L -6 0 L 0 6');
+
+    return keyframeToggle;
+  }
+
+  onTimeChanged() {
+    if(!this.keyframeToggle) {
+      return;
+    }
+
+    this.keyframeToggle.attr('fill-opacity', this.keyframeFillOpacity.bind(this));
+  }
+
+  keyframeFillOpacity(d) {
+    const millis = this.timeline.timer.last_time;
+    return d.keys.find(k => k.time * 1000 === millis) ? 1 : 0;
   }
 }

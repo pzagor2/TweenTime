@@ -96,6 +96,10 @@ export default class Timeline {
       this.render(0, false);
       this.keys.selectNewKey(newKey);
     });
+    this.properties.onKeyRemoved.add((removedKey) => {
+      this._isDirty = true;
+      this.render(0, false);
+    });
     this.errors = new Errors(this);
     this.keys = new Keys(this);
     this.keys.onKeyUpdated.add(() => {
@@ -199,6 +203,7 @@ export default class Timeline {
       // Render header and time indicator everytime the time changed.
       this.header.render();
       this.timeIndicator.render();
+      this.properties.onTimeChanged();
     }
 
     if (this._isDirty) {

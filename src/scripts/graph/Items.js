@@ -22,6 +22,7 @@ export default class Items {
   render() {
     const self = this;
     const tweenTime = self.timeline.tweenTime;
+    const data = tweenTime.data;
     const editor = self.timeline.editor;
 
     const selectBar = function(data) {
@@ -60,7 +61,7 @@ export default class Items {
       var dx = self.timeline.x.invert(d3.event.x).getTime() / 1000;
       var timeMatch = false;
       if (sourceEvent.shiftKey) {
-        timeMatch = Utils.getClosestTime(tweenTime.data, dx, d.id, false, tweenTime.timer);
+        timeMatch = Utils.getClosestTime(data, dx, d.id, false, tweenTime.timer);
       }
       if (!timeMatch) {
         var diff = dx - d.start;
@@ -77,7 +78,7 @@ export default class Items {
       var dx = self.timeline.x.invert(d3.event.x).getTime() / 1000;
       var timeMatch = false;
       if (sourceEvent.shiftKey) {
-        timeMatch = Utils.getClosestTime(tweenTime.data, dx, false, false, tweenTime.timer);
+        timeMatch = Utils.getClosestTime(data, dx, false, false, tweenTime.timer);
       }
       if (!timeMatch) {
         var diff = dx - d.end;
@@ -111,7 +112,7 @@ export default class Items {
 
     const bar_border = 1;
     const bar = this.container.selectAll('.line-grp')
-      .data(this.timeline.tweenTime.data, (d) => {
+      .data(data, (d) => {
         return d.id;
       });
 
@@ -261,13 +262,13 @@ export default class Items {
       })
       .attr('y', 16)
       .on('click', function(d) {
-        var foundItem = _.find(self.timeline.tweenTime.data, { id: d.id });
+        var foundItem = _.find(data, { id: d.id });
         foundItem.collapsed = !foundItem.collapsed;
         self.onUpdate.dispatch();
       });
 
     bar.selectAll('.line__toggle').text(function(d) {
-      var foundItem = _.find(self.timeline.tweenTime.data, { id: d.id });
+      var foundItem = _.find(data, { id: d.id });
       if (foundItem.collapsed) {
         return '▸';
       }

@@ -112,9 +112,7 @@ export default class Items {
 
     const bar_border = 1;
     const bar = this.container.selectAll('.line-grp')
-      .data(data, (d) => {
-        return d.id;
-      });
+      .data(data, (d) => d.id);
 
     const barEnter = bar.enter()
       .append('g').attr('class', 'line-grp');

@@ -109,12 +109,6 @@ export default class Items {
       })
       .on('drag', dragmove);
 
-    // remove whole data once in order to update
-    // there should be a better way tho
-    this.container.selectAll('.line-grp')
-      .data([])
-      .exit().remove()
-
     const bar_border = 1;
     const bar = this.container.selectAll('.line-grp')
       .data(this.timeline.tweenTime.data, (d) => {

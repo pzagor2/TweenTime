@@ -22,7 +22,6 @@ export default class Items {
   render() {
     const self = this;
     const tweenTime = self.timeline.tweenTime;
-    const data = tweenTime.data;
     const editor = self.timeline.editor;
 
     const selectBar = function(data) {
@@ -61,7 +60,7 @@ export default class Items {
       var dx = self.timeline.x.invert(d3.event.x).getTime() / 1000;
       var timeMatch = false;
       if (sourceEvent.shiftKey) {
-        timeMatch = Utils.getClosestTime(data, dx, d.id, false, tweenTime.timer);
+        timeMatch = Utils.getClosestTime(tweenTime.data, dx, d.id, false, tweenTime.timer);
       }
       if (!timeMatch) {
         var diff = dx - d.start;
@@ -78,7 +77,7 @@ export default class Items {
       var dx = self.timeline.x.invert(d3.event.x).getTime() / 1000;
       var timeMatch = false;
       if (sourceEvent.shiftKey) {
-        timeMatch = Utils.getClosestTime(data, dx, false, false, tweenTime.timer);
+        timeMatch = Utils.getClosestTime(tweenTime.data, dx, false, false, tweenTime.timer);
       }
       if (!timeMatch) {
         var diff = dx - d.end;
@@ -112,7 +111,7 @@ export default class Items {
 
     const bar_border = 1;
     const bar = this.container.selectAll('.line-grp')
-      .data(data, (d) => d.id);
+      .data(tweenTime.data, (d) => d.id);
 
     const barEnter = bar.enter()
       .append('g').attr('class', 'line-grp');

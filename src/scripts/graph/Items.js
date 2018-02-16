@@ -237,14 +237,7 @@ export default class Items {
 
     barEnter.append('text')
       .attr('class', 'line-label')
-      .attr('x', (d) => {
-        return self.timeline.label_position_x + 10 + indentWidthOf(d);
-      })
       .attr('y', 16)
-      .text((d) => {
-        return d.label;
-      })
-      .each(wrap)
       .on('click', selectBar)
       // .on('dblclick', selectProperty)
       .on('mousedown', function() {
@@ -252,26 +245,21 @@ export default class Items {
         // it create the selection rectangle
         d3.event.stopPropagation();
       });
+    bar.select('.line-label')
+      .attr('x', (d) => self.timeline.label_position_x + 10 + indentWidthOf(d))
+      .text((d) => d.label)
+      .each(wrap)
 
     barEnter.append('text')
       .attr('class', 'line__toggle')
-      .attr('x', (d) => {
-        return self.timeline.label_position_x - 10 + indentWidthOf(d);
-      })
       .attr('y', 16)
       .on('click', function(d) {
-        var foundItem = _.find(data, { id: d.id });
-        foundItem.collapsed = !foundItem.collapsed;
+        d.collapsed = !d.collapsed;
         self.onUpdate.dispatch();
       });
-
-    bar.selectAll('.line__toggle').text(function(d) {
-      var foundItem = _.find(data, { id: d.id });
-      if (foundItem.collapsed) {
-        return '▸';
-      }
-      return '▾';
-    });
+    bar.select('.line__toggle')
+      .attr('x', (d) => self.timeline.label_position_x - 10 + indentWidthOf(d))
+      .text((d) => d.collapsed ? '▸' : '▾');
 
     barEnter.append('line')
       .attr('class', 'line-separator')

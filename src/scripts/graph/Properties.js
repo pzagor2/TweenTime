@@ -24,6 +24,7 @@ export default class Properties {
       filtered = filtered.filter(p => {
         return !p.parent;
       });
+      filtered.forEach((prop) => prop.indentLevel = d.indentLevel)
     }
     return filtered;
   }
@@ -140,11 +141,11 @@ export default class Properties {
 
   renderPropertiesLabel(bar, subGrp) {
     var _this = this;
+    var colorSampleSize = this.timeline.lineHeight * 0.6;
     subGrp.selectAll('.line-label.line-label--sub.line-label--small').remove();
     subGrp.append('text')
       .attr({
         class: 'line-label line-label--sub line-label--small',
-        x: this.timeline.label_position_x + 20,
         y: this.timeline.lineHeight / 2,
         dy: '0.3em'  // centering
       })
@@ -153,6 +154,10 @@ export default class Properties {
         d._dom = this.parentElement.parentElement;
         _this.timeline.selectionManager.select(d);
       });
+    subGrp.select('text')
+      .attr({
+        x: (d) => this.timeline.label_position_x + this.indentWidthOf(d) + colorSampleSize + 10
+      })
   }
 
   renderKeyframeToggle(subGrp) {
@@ -214,5 +219,10 @@ export default class Properties {
   keyframeFillOpacity(d) {
     const millis = this.timeline.timer.last_time;
     return d.keys.find(k => k.time * 1000 === millis) ? 1 : 0;
+  }
+
+  indentWidthOf(d) {
+    console.log('# d', d)
+    return d.indentLevel ? d.indentLevel * 16 : 0;
   }
 }

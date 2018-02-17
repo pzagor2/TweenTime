@@ -236,12 +236,9 @@ export default class Items {
       }
     }
 
+    var colorSampleSize = self.timeline.lineHeight * 0.6;
     barEnter.append('text')
       .attr('class', 'line-label')
-      .style({
-        'font-family': self.timeline.fontFamily,
-        'font-size': `${self.timeline.fontSize}px`
-      })
       .attr('y', self.timeline.lineHeight / 2)
       .attr('dy', '0.3em')  // centering
       .on('click', selectBar)
@@ -252,15 +249,15 @@ export default class Items {
         d3.event.stopPropagation();
       });
     bar.select('.line-label')
-      .attr('x', (d) => self.timeline.label_position_x + indentWidthOf(d) + self.timeline.fontSize + 10)
+      .attr('x', (d) => self.timeline.label_position_x + indentWidthOf(d) + colorSampleSize + 10)
       .text((d) => d.label)
       .each(wrap);
 
     barEnter.append('rect')
       .attr('class', 'line-colorSample')
-      .attr('y', (self.timeline.lineHeight - self.timeline.fontSize) / 2)
-      .attr('width', self.timeline.fontSize)
-      .attr('height', self.timeline.fontSize);
+      .attr('y', (self.timeline.lineHeight - colorSampleSize) / 2)
+      .attr('width', colorSampleSize)
+      .attr('height', colorSampleSize);
     bar.select('.line-colorSample')
       .attr('x', (d) => self.timeline.label_position_x + indentWidthOf(d) + 5);
 

@@ -44,8 +44,6 @@ export default class Timeline {
     var width = window.innerWidth - margin.left - margin.right - 270;
     var height = 270 - margin.top - margin.bottom - 40;
     this.lineHeight = options.lineHeight || 20;
-    this.fontSize = options.fontSize || 13;
-    this.fontFamily = options.fontFamily || 'serif';
     this.label_position_x = -margin.left + 20;
 
     this.x = d3.time.scale()

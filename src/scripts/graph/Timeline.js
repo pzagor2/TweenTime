@@ -208,6 +208,7 @@ export default class Timeline {
 
     if (this._isDirty) {
       // No need to call this on each frames, but only on brush, key drag, ...
+      this.updateKeyDurations(this.tweenTime.data);
       var bar = this.items.render();
       this.keysPreview.render(bar);
       var properties = this.properties.render(bar);
@@ -225,6 +226,43 @@ export default class Timeline {
       this.svg.attr('height', height);
       this.svgGrid.attr('height', height);
       this.timeIndicator.updateHeight(height);
+    }
+  }
+
+  updateKeyDurations(elements) {
+		elements.forEach((element) => {
+			element.properties.forEach((property) => {
+				property.keys.forEach((key, index, keys) => {
+					key.duration = this.calculateDuration(key, index, keys);
+				})
+			})
+		})
+		return elements;
+	}
+
+  calculateDuration(key, index, keys) {
+    var nextKey = keys[index + 1];
+    if (!nextKey) {
+      return 0;
+    }
+
+    var current = key.value;
+    var next = nextKey.value;
+    var duration = this.deepEqual(current, next) ? 0 : nextKey.time - key.time;
+    return duration;
+  }
+
+  // maybe there has been something reusable instead of this
+  deepEqual(v1, v2) {
+    if (typeof v1 === 'object' && typeof v2 === 'object') {
+      var keys = Object.keys(v1);
+      if (keys.length !== Object.keys(v2).length) {
+        return false;
+      }
+      return keys.every((key) => this.deepEqual(v1[key], v2[key]))
+    }
+    else {
+      return v1 === v2;
     }
   }
 }

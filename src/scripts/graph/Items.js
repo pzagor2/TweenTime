@@ -113,8 +113,7 @@ export default class Items {
     const bar = this.container.selectAll('.line-grp')
       .data(tweenTime.data, (d) => d.id);
 
-    const barEnter = bar.enter()
-      .append('g')
+    const barEnter = bar.enter().append('g')
       .attr('class', 'line-grp')
       .attr('data-element-type', d => d.elementType || 'unknown');
 
@@ -254,7 +253,6 @@ export default class Items {
         d3.event.stopPropagation();
       });
     bar.select('.line-label')
-      // .attr('x', (d) => self.timeline.label_position_x + 10 + indentWidthOf(d))
       .attr('x', (d) => self.timeline.label_position_x + indentWidthOf(d) + self.timeline.fontSize + 10)
       .text((d) => d.label)
       .each(wrap)

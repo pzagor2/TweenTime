@@ -246,9 +246,7 @@ export default class Timeline {
       return 0;
     }
 
-    var current = key.value;
-    var next = nextKey.value;
-    var duration = this.deepEqual(current, next) ? 0 : nextKey.time - key.time;
+    var duration = this.deepEqual(key.value, nextKey.value) ? 0 : nextKey.time - key.time;
     return duration;
   }
 

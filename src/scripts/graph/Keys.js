@@ -206,10 +206,7 @@ export default class Keys {
       });
     keys.select('.key-transitionBar')
       .attr({
-        width: (key) => {
-          var duration = key.duration || 0;
-          return self.timeline.x(duration * 1000);
-        },
+        width: (key) => self.timeline.x(key.duration * 1000 || 0),
       });
 
     var grp_linear = key_grp.append('g')

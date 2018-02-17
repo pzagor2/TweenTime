@@ -236,13 +236,12 @@ export default class Items {
       }
     }
 
-    const lineLabelStyle = [
-      self.timeline.fontFamily && `font-family: ${self.timeline.fontFamily}`,
-      self.timeline.fontSize && `font-size: ${self.timeline.fontSize}px`
-    ].filter((d) => d).join(';');
     barEnter.append('text')
       .attr('class', 'line-label')
-      .attr('style', lineLabelStyle)
+      .style({
+        'font-family': self.timeline.fontFamily,
+        'font-size': `${self.timeline.fontSize}px`,
+      })
       .attr('y', self.timeline.lineHeight / 2)
       .attr('dy', '0.3em')  // centering
       .on('click', selectBar)

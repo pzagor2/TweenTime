@@ -202,11 +202,11 @@ export default class Keys {
         class: 'key-transitionBar',
         fill: 'white',
         height: 12,
-        y: -6,
+        y: -6
       });
     keys.select('.key-transitionBar')
       .attr({
-        width: (key) => self.timeline.x(key.duration * 1000 || 0),
+        width: (key) => self.timeline.x(key.duration * 1000 || 0)
       });
 
     var grp_linear = key_grp.append('g')

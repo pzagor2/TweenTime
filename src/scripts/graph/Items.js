@@ -240,7 +240,7 @@ export default class Items {
       .attr('class', 'line-label')
       .style({
         'font-family': self.timeline.fontFamily,
-        'font-size': `${self.timeline.fontSize}px`,
+        'font-size': `${self.timeline.fontSize}px`
       })
       .attr('y', self.timeline.lineHeight / 2)
       .attr('dy', '0.3em')  // centering
@@ -254,15 +254,15 @@ export default class Items {
     bar.select('.line-label')
       .attr('x', (d) => self.timeline.label_position_x + indentWidthOf(d) + self.timeline.fontSize + 10)
       .text((d) => d.label)
-      .each(wrap)
+      .each(wrap);
 
     barEnter.append('rect')
       .attr('class', 'line-colorSample')
       .attr('y', (self.timeline.lineHeight - self.timeline.fontSize) / 2)
       .attr('width', self.timeline.fontSize)
-      .attr('height', self.timeline.fontSize)
+      .attr('height', self.timeline.fontSize);
     bar.select('.line-colorSample')
-      .attr('x', (d) => self.timeline.label_position_x + indentWidthOf(d) + 5)
+      .attr('x', (d) => self.timeline.label_position_x + indentWidthOf(d) + 5);
 
     barEnter.append('text')
       .attr('class', 'line__toggle')

@@ -230,15 +230,15 @@ export default class Timeline {
   }
 
   updateKeyDurations(elements) {
-		elements.forEach((element) => {
-			element.properties.forEach((property) => {
-				property.keys.forEach((key, index, keys) => {
-					key.duration = this.calculateDuration(key, index, keys);
-				})
-			})
-		})
-		return elements;
-	}
+    elements.forEach((element) => {
+      element.properties.forEach((property) => {
+        property.keys.forEach((key, index, keys) => {
+          key.duration = this.calculateDuration(key, index, keys);
+        });
+      });
+    });
+    return elements;
+  }
 
   calculateDuration(key, index, keys) {
     var nextKey = keys[index + 1];
@@ -252,15 +252,19 @@ export default class Timeline {
 
   // maybe there has been something reusable instead of this
   deepEqual(v1, v2) {
+    var result
     if (typeof v1 === 'object' && typeof v2 === 'object') {
       var keys = Object.keys(v1);
       if (keys.length !== Object.keys(v2).length) {
-        return false;
+        result = false;
       }
-      return keys.every((key) => this.deepEqual(v1[key], v2[key]))
+      else {
+        result = keys.every((key) => this.deepEqual(v1[key], v2[key]))
+      }
     }
     else {
-      return v1 === v2;
+      result = v1 === v2;
     }
+    return result;
   }
 }

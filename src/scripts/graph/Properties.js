@@ -50,6 +50,7 @@ export default class Properties {
 
     // Save subGrp in a variable for use in Errors.coffee
     self.subGrp = subGrp;
+    this.bar = bar;
 
     properties.attr('transform', (d, i) => this.setSublineHeight(d, i));
 
@@ -101,7 +102,8 @@ export default class Properties {
 
     this.renderPropertiesLabel(bar, properties);
 
-    this.keyframeToggle = this.renderKeyframeToggle(properties);
+    this.renderKeyframeToggle(subGrp);
+    this.renderKeyframeValueInput(subGrp);
 
     subGrp.append('line')
       .attr('class', 'line-separator--secondary')
@@ -155,8 +157,9 @@ export default class Properties {
   }
 
   renderKeyframeToggle(subGrp) {
-    const keyframeToggle = subGrp.append('svg')
+    const keyframeToggle = subGrp.append('g')
       .attr('class', 'keyframe-toggle')
+      .attr('transform', 'translate(-10, 10)')
       .attr('x', -10)
       .attr('y', 10)
       .attr('stroke', 'black')
@@ -202,12 +205,49 @@ export default class Properties {
     return keyframeToggle;
   }
 
+  renderKeyframeValueInput(subGrp) {
+    const v = subGrp.append('g')
+      .attr('class', 'keyframe-value-input')
+      .attr('transform', 'translate(-120, 6)')
+      .append('text')
+      .attr('font-size', 13)
+      .attr('transform', 'translate(0, 10)')
+      .attr('fill', 'blue')
+      .attr('text-decoration', 'underline')
+      .text(this.keyframeValue.bind(this));
+
+    return v;
+  }
+
+  keyframeValue(d) {
+    const millis = this.timeline.timer.last_time;
+    const seconds = millis / 1000;
+    const prevKey = Utils.getPreviousKey(d.keys, seconds);
+    const currentKey = d.keys.find(k => k.time * 1000 === millis);
+    const val = currentKey ? currentKey.value : '';
+
+    if(d.name === 'size' && val !== '') {
+      const w = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'width');
+      const h = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'height');
+      return `${w}(w) x ${h}(h)`;
+    }
+
+    if(d.name === 'position' && val !== '') {
+      const x = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'x');
+      const y = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'y');
+      return `${x}(x) x ${y}(y)`;
+    }
+
+    return val;
+  }
+
   onTimeChanged() {
-    if(!this.keyframeToggle) {
+    if(!this.bar) {
       return;
     }
 
-    this.keyframeToggle.attr('fill-opacity', this.keyframeFillOpacity.bind(this));
+    this.bar.selectAll('.keyframe-toggle').attr('fill-opacity', this.keyframeFillOpacity.bind(this));
+    this.bar.selectAll('.keyframe-value-input text').text(this.keyframeValue.bind(this));
   }
 
   keyframeFillOpacity(d) {

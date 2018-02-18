@@ -15,6 +15,7 @@ class Editor {
     this.timer = this.tweenTime.timer;
     this.lastTime = -1;
     this.curveEditEnabled = false;
+    this.timelineService = options.timelineService;
 
     this.onKeyAdded = this.onKeyAdded.bind(this);
     this.onKeyRemoved = this.onKeyRemoved.bind(this);

@@ -156,7 +156,7 @@ export default class Properties {
         d._dom = this.parentElement.parentElement;
         _this.timeline.selectionManager.select(d);
       });
-    subGrp.select('text')
+    subGrp.select('.line-label')
       .attr({
         x: (d) => this.timeline.label_position_x + this.indentWidthOf(d) + colorSampleSize + 10
       })

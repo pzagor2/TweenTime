@@ -197,6 +197,18 @@ export default class Keys {
         return cls;
       });
 
+    keys.append('rect')
+      .attr({
+        class: 'key-transitionBar',
+        fill: 'white',
+        height: 12,
+        y: -6
+      });
+    keys.select('.key-transitionBar')
+      .attr({
+        width: (key) => self.timeline.x(key.duration * 1000 || 0)
+      });
+
     var grp_linear = key_grp.append('g')
       .attr('class', 'ease-linear');
     grp_linear.append('path')
@@ -252,7 +264,7 @@ export default class Keys {
     keys.attr('transform', function(d) {
       var dx = self.timeline.x(d.time * 1000);
       dx = parseInt(dx, 10);
-      var dy = 10;
+      var dy = self.timeline.lineHeight / 2;
       return 'translate(' + dx + ',' + dy + ')';
     });
 

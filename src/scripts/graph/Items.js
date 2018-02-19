@@ -113,8 +113,9 @@ export default class Items {
     const bar = this.container.selectAll('.line-grp')
       .data(tweenTime.data, (d) => d.id);
 
-    const barEnter = bar.enter()
-      .append('g').attr('class', 'line-grp');
+    const barEnter = bar.enter().append('g')
+      .attr('class', 'line-grp')
+      .attr('data-element-type', d => d.elementType || 'unknown');
 
     // Create highlight layer
     barEnter.append('rect')
@@ -127,6 +128,7 @@ export default class Items {
     const barContainerRight = barEnter.append('svg')
       .attr({
         class: 'timeline__right-mask',
+        y: self.timeline.lineHeight / 2 - 12,
         width: window.innerWidth - self.timeline.label_position_x
       });
 
@@ -234,9 +236,11 @@ export default class Items {
       }
     }
 
+    var colorSampleSize = self.timeline.lineHeight * 0.6;
     barEnter.append('text')
       .attr('class', 'line-label')
-      .attr('y', 16)
+      .attr('y', self.timeline.lineHeight / 2)
+      .attr('dy', '0.3em')  // centering
       .on('click', selectBar)
       // .on('dblclick', selectProperty)
       .on('mousedown', function() {
@@ -245,13 +249,22 @@ export default class Items {
         d3.event.stopPropagation();
       });
     bar.select('.line-label')
-      .attr('x', (d) => self.timeline.label_position_x + 10 + indentWidthOf(d))
+      .attr('x', (d) => self.timeline.label_position_x + indentWidthOf(d) + colorSampleSize + 10)
       .text((d) => d.label)
-      .each(wrap)
+      .each(wrap);
+
+    barEnter.append('rect')
+      .attr('class', 'line-colorSample')
+      .attr('y', (self.timeline.lineHeight - colorSampleSize) / 2)
+      .attr('width', colorSampleSize)
+      .attr('height', colorSampleSize);
+    bar.select('.line-colorSample')
+      .attr('x', (d) => self.timeline.label_position_x + indentWidthOf(d) + 5);
 
     barEnter.append('text')
       .attr('class', 'line__toggle')
-      .attr('y', 16)
+      .attr('y', self.timeline.lineHeight / 2)
+      .attr('dy', '0.3em')  // centering
       .on('click', function(d) {
         d.collapsed = !d.collapsed;
         self.onUpdate.dispatch();

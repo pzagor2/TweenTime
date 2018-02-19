@@ -24,6 +24,7 @@ export default class Properties {
       filtered = filtered.filter(p => {
         return !p.parent;
       });
+      filtered.forEach((prop) => prop.indentLevel = d.indentLevel)
     }
     return filtered;
   }
@@ -142,18 +143,23 @@ export default class Properties {
 
   renderPropertiesLabel(bar, subGrp) {
     var _this = this;
+    var colorSampleSize = this.timeline.lineHeight * 0.6;
     subGrp.selectAll('.line-label.line-label--sub.line-label--small').remove();
     subGrp.append('text')
       .attr({
         class: 'line-label line-label--sub line-label--small',
-        x: this.timeline.label_position_x + 20,
-        y: 15
+        y: this.timeline.lineHeight / 2,
+        dy: '0.3em'  // centering
       })
       .text((d) => d.name)
       .on('click', function(d) {
         d._dom = this.parentElement.parentElement;
         _this.timeline.selectionManager.select(d);
       });
+    subGrp.select('.line-label')
+      .attr({
+        x: (d) => this.timeline.label_position_x + this.indentWidthOf(d) + colorSampleSize + 10
+      })
   }
 
   renderKeyframeToggle(subGrp) {
@@ -227,18 +233,28 @@ export default class Properties {
     const val = currentKey ? currentKey.value : '';
 
     if(d.name === 'size' && val !== '') {
-      const w = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'width');
-      const h = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'height');
+      const w = this.applyAnimationValue(d._line.id, val, 'width');
+      const h = this.applyAnimationValue(d._line.id, val, 'height');
       return `${w}(w) x ${h}(h)`;
     }
 
     if(d.name === 'position' && val !== '') {
-      const x = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'x');
-      const y = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'y');
+      const x = this.applyAnimationValue(d._line.id, val, 'x');
+      const y = this.applyAnimationValue(d._line.id, val, 'y');
       return `${x}(x) x ${y}(y)`;
     }
 
     return val;
+  }
+
+  applyAnimationValue(id, value, name) {
+    var result = '';
+    try {
+      result = this.timeline.editor.timelineService.applyAnimationValue(id, value, name);
+    } catch (e) {
+      // maybe ad size is not ready
+    }
+    return result;
   }
 
   onTimeChanged() {
@@ -253,5 +269,9 @@ export default class Properties {
   keyframeFillOpacity(d) {
     const millis = this.timeline.timer.last_time;
     return d.keys.find(k => k.time * 1000 === millis) ? 1 : 0;
+  }
+
+  indentWidthOf(d) {
+    return d.indentLevel ? d.indentLevel * 16 : 0;
   }
 }

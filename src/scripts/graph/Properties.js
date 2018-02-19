@@ -262,7 +262,6 @@ export default class Properties {
   }
 
   indentWidthOf(d) {
-    console.log('# d', d)
     return d.indentLevel ? d.indentLevel * 16 : 0;
   }
 }

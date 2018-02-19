@@ -233,18 +233,28 @@ export default class Properties {
     const val = currentKey ? currentKey.value : '';
 
     if(d.name === 'size' && val !== '') {
-      const w = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'width');
-      const h = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'height');
+      const w = this.applyAnimationValue(d._line.id, val, 'width');
+      const h = this.applyAnimationValue(d._line.id, val, 'height');
       return `${w}(w) x ${h}(h)`;
     }
 
     if(d.name === 'position' && val !== '') {
-      const x = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'x');
-      const y = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'y');
+      const x = this.applyAnimationValue(d._line.id, val, 'x');
+      const y = this.applyAnimationValue(d._line.id, val, 'y');
       return `${x}(x) x ${y}(y)`;
     }
 
     return val;
+  }
+
+  applyAnimationValue(id, value, name) {
+    var result = '';
+    try {
+      result = this.timeline.editor.timelineService.applyAnimationValue(id, value, name);
+    } catch (e) {
+      // maybe ad size is not ready
+    }
+    return result;
   }
 
   onTimeChanged() {

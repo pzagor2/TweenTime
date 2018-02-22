@@ -158,7 +158,7 @@ export default class Properties {
       });
     subGrp.select('.line-label')
       .attr({
-        x: (d) => this.timeline.label_position_x + this.indentWidthOf(d) + colorSampleSize + 10
+        x: (d) => this.timeline.label_position_x + this.indentWidthOf(d) + colorSampleSize + 10 + 30
       })
   }
 
@@ -168,8 +168,8 @@ export default class Properties {
       .attr('transform', 'translate(-10, 10)')
       .attr('x', -10)
       .attr('y', 10)
-      .attr('stroke', 'black')
-      .attr('fill', 'blue')
+      .attr('stroke', '#bbb')
+      .attr('fill', '#bbb')
       .attr('fill-opacity', this.keyframeFillOpacity.bind(this))
       .on('click', (d) => {
         const millis = this.timeline.timer.last_time;
@@ -213,13 +213,10 @@ export default class Properties {
 
   renderKeyframeValueInput(subGrp) {
     const v = subGrp.append('g')
-      .attr('class', 'keyframe-value-input')
+      .attr('class', 'line-label--small keyframe-value-input')
       .attr('transform', 'translate(-120, 6)')
       .append('text')
-      .attr('font-size', 13)
       .attr('transform', 'translate(0, 10)')
-      .attr('fill', 'blue')
-      .attr('text-decoration', 'underline')
       .text(this.keyframeValue.bind(this));
 
     return v;

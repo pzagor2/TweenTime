@@ -27,9 +27,16 @@ export default class Header {
       .tickSize(-5, 0)
       .tickFormat(Utils.formatMinutes);
 
+    const svgWidth = width + this.margin.left + this.margin.right;
+    const svgHeight = 56;
     this.svg = d3.select(editor.$timeline.get(0)).select('.timeline__header').append('svg')
-      .attr('width', width + this.margin.left + this.margin.right)
-      .attr('height', 56);
+      .attr('width', svgWidth)
+      .attr('height', svgHeight);
+
+    this.svg.append('path')
+      .attr('class', 'timeline__header__bottom')
+      .attr('d', `M 0 50 l ${svgWidth} 0`)  // svgHeight is overlapped by the element `.timeline__grid`
+      .attr('stroke', '#aaa');
 
     this.svgContainer = this.svg.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
@@ -184,15 +191,6 @@ export default class Header {
     timeGrp.append('path')
       .attr('class', 'time-indicator__handle')
       .attr('d', 'M -5 -3 L -5 5 L 0 10 L 5 5 L 5 -3 L -5 -3');
-
-    // Mask time indicator
-    // todo: remove the mask.
-    this.svgContainer.append('rect')
-      .attr('class', 'graph-mask')
-      .attr('x', -self.margin.left)
-      .attr('y', -self.margin.top)
-      .attr('width', self.margin.left - 5)
-      .attr('height', self.height);
   }
 
   resize(width) {

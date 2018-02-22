@@ -54,7 +54,7 @@ export default class Timeline {
       .scale(this.x)
       .orient('top')
       .tickSize(-height, 0)
-      .tickFormat(Utils.formatMinutes);
+      .tickFormat(Utils.formatSeconds);
 
     this.svgGrid = d3.select(editor.$timeline.get(0)).select('.timeline__grid').append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -68,7 +68,7 @@ export default class Timeline {
 
 
     this.linesContainer = this.svg.append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+      .attr('transform', 'translate(' + margin.left + ',' + (margin.top - 15) + ')');
 
     this.svgContainer = this.svgGrid.append('g')
       .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');

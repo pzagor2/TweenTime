@@ -168,8 +168,8 @@ export default class Properties {
       .attr('transform', 'translate(-10, 10)')
       .attr('x', -10)
       .attr('y', 10)
-      .attr('stroke', 'black')
-      .attr('fill', 'blue')
+      .attr('stroke', '#bbb')
+      .attr('fill', '#bbb')
       .attr('fill-opacity', this.keyframeFillOpacity.bind(this))
       .on('click', (d) => {
         const millis = this.timeline.timer.last_time;

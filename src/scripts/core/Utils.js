@@ -20,8 +20,7 @@ export default class Utils {
     // 0.5 -> ""
     // 1.0 -> "1"
     const seconds = d / 1000;
-    const iSeconds = Math.floor(seconds);
-    const sSeconds = seconds === iSeconds ? String(iSeconds) : '';
+    const sSeconds = seconds === Math.floor(seconds) ? String(seconds) : '';
     return sSeconds;
   }
 

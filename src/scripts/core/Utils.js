@@ -15,21 +15,32 @@ const EASE_POINTS = {
 };
 
 export default class Utils {
-  static formatMinutes(d) {
-    // convert milliseconds to seconds
-    let seconds = d / 1000;
-    let hours = Math.floor(seconds / 3600);
-    let minutes = Math.floor((seconds - hours * 3600) / 60);
-    seconds = seconds - minutes * 60;
-    let output = seconds + 's';
-    if (minutes) {
-      output = minutes + 'm ' + output;
-    }
-    if (hours) {
-      output = hours + 'h ' + output;
-    }
-    return output;
+  static formatSeconds(d) {
+    // 0.0 -> "0"
+    // 0.5 -> ""
+    // 1.0 -> "1"
+    const seconds = d / 1000;
+    const iSeconds = Math.floor(seconds);
+    const sSeconds = seconds === iSeconds ? String(iSeconds) : '';
+    return sSeconds;
   }
+
+  // DEPRECATED this has been replaced with formatSeconds() but will be back maybe...
+  // static formatMinutes(d) {
+  //   // convert milliseconds to seconds
+  //   let seconds = d / 1000;
+  //   let hours = Math.floor(seconds / 3600);
+  //   let minutes = Math.floor((seconds - hours * 3600) / 60);
+  //   seconds = seconds - minutes * 60;
+  //   let output = seconds + 's';
+  //   if (minutes) {
+  //     output = minutes + 'm ' + output;
+  //   }
+  //   if (hours) {
+  //     output = hours + 'h ' + output;
+  //   }
+  //   return output;
+  // }
 
   static getClosestTime(data, time, objectId = false, property_name = false, timer = false, tolerance = 0.1) {
     if (timer) {

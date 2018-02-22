@@ -39,7 +39,7 @@ export default class Timeline {
       this.timer.time[0] = this.initialDomain[0];
     }
 
-    var margin = {top: 6, right: 20, bottom: 0, left: 265};
+    var margin = {top: 0, right: 20, bottom: 0, left: 265};
     this.margin = margin;
     var width = window.innerWidth - margin.left - margin.right - 270;
     var height = 270 - margin.top - margin.bottom - 40;

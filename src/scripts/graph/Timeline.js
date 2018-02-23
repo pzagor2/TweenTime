@@ -201,7 +201,7 @@ export default class Timeline {
       // Render header and time indicator everytime the time changed.
       this.header.render();
       this.timeIndicator.render();
-      this.properties.onTimeChanged();
+      this.properties.onUpdate();
     }
 
     if (this._isDirty) {

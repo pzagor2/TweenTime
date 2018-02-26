@@ -216,8 +216,7 @@ export default class Properties {
       .attr('class', 'line-label--small keyframe-value-input')
       .attr('transform', 'translate(-120, 6)')
       .append('text')
-      .attr('transform', 'translate(0, 10)')
-      .text(this.keyframeValue.bind(this));
+      .attr('transform', 'translate(0, 10)');
 
     return v;
   }

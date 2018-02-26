@@ -213,16 +213,15 @@ export default class Properties {
 
   renderKeyframeValueInput(subGrp) {
     const v = subGrp.append('g')
-      .attr('class', 'line-label--small keyframe-value-input')
-      .attr('transform', 'translate(-120, 6)')
+      .attr('class', 'line-label--small keyframe-value')
+      .attr('transform', 'translate(-70, 16)')
       .append('text')
-      .attr('transform', 'translate(0, 10)')
-      .text(this.keyframeValue.bind(this));
+      .attr('text-anchor', 'middle');
 
     return v;
   }
 
-  keyframeValue(d) {
+  keyframeValueHTML(d) {
     const millis = this.timeline.timer.last_time;
     const seconds = millis / 1000;
     const prevKey = Utils.getPreviousKey(d.keys, seconds);
@@ -232,23 +231,23 @@ export default class Properties {
     if(d.name === 'size' && val !== '') {
       const w = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'width');
       const h = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'height');
-      return `${w}(w) x ${h}(h)`;
+      return `<tspan class="keyframe-value-input">${w}</tspan>(w) x <tspan class="keyframe-value-input">${h}</tspan>(h)`;
     }
 
     if(d.name === 'position' && val !== '') {
       const x = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'x');
       const y = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'y');
-      return `${x}(x) x ${y}(y)`;
+      return `<tspan class="keyframe-value-input">${x}</tspan>(x) x <tspan class="keyframe-value-input">${y}</tspan>(y)`;
     }
 
     if (d.name === 'opacity' && val !== '') {
       const valPercentage = val * 100;
-      return `${valPercentage}%`;
+      return `<tspan class="keyframe-value-input">${valPercentage}</tspan>%`;
     }
 
     if (d.name === 'scale' && val !== '') {
       const valPercentage = val * 100;
-      return `${valPercentage}%`;
+      return `<tspan class="keyframe-value-input">${valPercentage}</tspan>%`;
     }
 
     return val;
@@ -266,7 +265,7 @@ export default class Properties {
     }
 
     this.bar.selectAll('.keyframe-toggle').attr('fill-opacity', this.keyframeFillOpacity.bind(this));
-    this.bar.selectAll('.keyframe-value-input text').text(this.keyframeValue.bind(this));
+    this.bar.selectAll('.keyframe-value text').html(this.keyframeValueHTML.bind(this));
   }
 
   keyframeFillOpacity(d) {

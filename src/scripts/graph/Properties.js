@@ -241,6 +241,16 @@ export default class Properties {
       return `${x}(x) x ${y}(y)`;
     }
 
+    if (d.name === 'opacity' && val !== '') {
+      const valPercentage = val * 100;
+      return `${valPercentage}%`;
+    }
+
+    if (d.name === 'scale' && val !== '') {
+      const valPercentage = val * 100;
+      return `${valPercentage}%`;
+    }
+
     return val;
   }
 

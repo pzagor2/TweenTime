@@ -214,9 +214,8 @@ export default class Properties {
   renderKeyframeValueInput(subGrp) {
     const v = subGrp.append('g')
       .attr('class', 'line-label--small keyframe-value')
-      .attr('transform', 'translate(-120, 6)')
-      .append('text')
-      .attr('transform', 'translate(0, 10)');
+      .attr('transform', 'translate(-120, 16)')
+      .append('text');
 
     return v;
   }

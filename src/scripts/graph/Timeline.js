@@ -39,9 +39,9 @@ export default class Timeline {
       this.timer.time[0] = this.initialDomain[0];
     }
 
-    var margin = {top: 6, right: 20, bottom: 0, left: 265};
+    var margin = {top: 6, right: 20, bottom: 0, left: 265, extraRight: 270};
     this.margin = margin;
-    var width = window.innerWidth - margin.left - margin.right - 270;
+    var width = window.innerWidth - margin.left - margin.right - margin.extraRight;
     var height = 270 - margin.top - margin.bottom - 40;
     this.lineHeight = options.lineHeight || 20;
     this.label_position_x = -margin.left + 20;
@@ -145,16 +145,7 @@ export default class Timeline {
       if (ev.target !== window) {
         return;
       }
-      var INNER_WIDTH = window.innerWidth - 270;
-      var width2 = INNER_WIDTH - margin.left - margin.right;
-      this.svg.attr('width', width2 + margin.left + margin.right);
-      this.svg.selectAll('.timeline__right-mask')
-        .attr('width', INNER_WIDTH);
-      this.x.range([0, width2]);
-
-      this._isDirty = true;
-      this.header.resize(INNER_WIDTH);
-      this.render();
+      this.resize();
     };
   }
 
@@ -264,5 +255,23 @@ export default class Timeline {
       result = v1 === v2;
     }
     return result;
+  }
+
+  resize(newExtraRight) {
+    if (newExtraRight !== undefined) {
+      this.margin.extraRight = Number(newExtraRight) || 0;
+    }
+
+    var margin = this.margin;
+    var INNER_WIDTH = window.innerWidth - margin.extraRight;
+    var width2 = INNER_WIDTH - margin.left - margin.right;
+    this.svg.attr('width', width2 + this.margin.left + this.margin.right);
+    this.svg.selectAll('.timeline__right-mask')
+      .attr('width', INNER_WIDTH);
+    this.x.range([0, width2]);
+
+    this._isDirty = true;
+    this.header.resize(INNER_WIDTH);
+    this.render();
   }
 }

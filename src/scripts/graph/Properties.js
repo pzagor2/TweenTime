@@ -229,14 +229,14 @@ export default class Properties {
     const val = currentKey ? currentKey.value : '';
 
     if(d.name === 'size' && val !== '') {
-      const w = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'width');
-      const h = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'height');
+      const w = this.applyAnimationValue(d._line.id, val, 'width');
+      const h = this.applyAnimationValue(d._line.id, val, 'height');
       return `<tspan class="keyframe-value-input">${w}</tspan>(w) x <tspan class="keyframe-value-input">${h}</tspan>(h)`;
     }
 
     if(d.name === 'position' && val !== '') {
-      const x = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'x');
-      const y = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'y');
+      const x = this.applyAnimationValue(d._line.id, val, 'x');
+      const y = this.applyAnimationValue(d._line.id, val, 'y');
       return `<tspan class="keyframe-value-input">${x}</tspan>(x) x <tspan class="keyframe-value-input">${y}</tspan>(y)`;
     }
 
@@ -251,6 +251,18 @@ export default class Properties {
     }
 
     return val;
+  }
+
+  applyAnimationValue(id, value, name) {
+    var result;
+    try {
+      result = this.timeline.editor.timelineService.applyAnimationValue(id, value, name);
+    } catch (err) {
+      // continue the sequence even if this external process failed
+      console.error('TIMELINE SERVICE', err);
+      result = '';
+    }
+    return result;
   }
 
   /**

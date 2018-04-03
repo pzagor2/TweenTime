@@ -53,8 +53,23 @@ export default class Timeline {
     this.xAxis = d3.svg.axis()
       .scale(this.x)
       .orient('top')
+      .ticks(10)
       .tickSize(-height, 0)
       .tickFormat(Utils.formatSeconds);
+
+    this.xSmallRulerAxis = d3.svg.axis()
+      .scale(this.x)
+      .orient('top')
+      .ticks(this.xAxis.ticks() * 10)
+      .tickSize(4, 0)
+      .tickFormat('');
+
+    this.xBigRulerAxis = d3.svg.axis()
+      .scale(this.x)
+      .orient('top')
+      .ticks(this.xAxis.ticks() * 2)
+      .tickSize(6, 0)
+      .tickFormat('');
 
     this.svgGrid = d3.select(editor.$timeline.get(0)).select('.timeline__grid').append('svg')
       .attr('width', width + margin.left + margin.right)
@@ -125,6 +140,16 @@ export default class Timeline {
       .attr('transform', 'translate(0,' + margin.top + ')')
       .call(this.xAxisGrid);
 
+    this.xSmallRulerElement = this.svgContainer.append('g')
+      .attr('class', 'x ruler ruler--small')
+      .attr('transform', 'translate(0,' + (margin.top + 3) + ')')
+      .call(this.xSmallRulerAxis);
+
+    this.xBigRulerElement = this.svgContainer.append('g')
+      .attr('class', 'x ruler ruler--big')
+      .attr('transform', 'translate(0,' + (margin.top + 3) + ')')
+      .call(this.xBigRulerAxis);
+
     this.xAxisElement = this.svgContainer.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + margin.top + ')')
@@ -134,6 +159,8 @@ export default class Timeline {
       this.x.domain(extent);
       this.xGrid.call(this.xAxisGrid);
       this.xAxisElement.call(this.xAxis);
+      this.xSmallRulerElement.call(this.xSmallRulerAxis);
+      this.xBigRulerElement.call(this.xBigRulerAxis);
       this._isDirty = true;
     });
 
@@ -212,6 +239,8 @@ export default class Timeline {
       this.xAxisGrid.tickSize(-height, 0);
       this.xGrid.call(this.xAxisGrid);
       this.xAxisElement.call(this.xAxis);
+      this.xSmallRulerElement.call(this.xSmallRulerAxis);
+      this.xBigRulerElement.call(this.xBigRulerAxis);
       this.svg.attr('height', height);
       this.svgGrid.attr('height', height);
       this.timeIndicator.updateHeight(height);

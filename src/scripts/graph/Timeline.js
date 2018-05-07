@@ -294,7 +294,7 @@ export default class Timeline {
     var margin = this.margin;
     var INNER_WIDTH = window.innerWidth - margin.extraRight;
     var width2 = INNER_WIDTH - margin.left - margin.right;
-    this.svg.attr('width', width2 + this.margin.left + this.margin.right);
+    this.svg.attr('width', width2 + margin.left + margin.right);
     this.svg.selectAll('.timeline__right-mask')
       .attr('width', INNER_WIDTH);
     this.x.range([0, width2]);

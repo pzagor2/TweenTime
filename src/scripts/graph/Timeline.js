@@ -298,6 +298,7 @@ export default class Timeline {
     this.svg.selectAll('.timeline__right-mask')
       .attr('width', INNER_WIDTH);
     this.x.range([0, width2]);
+    this.svgGrid.attr('width', width2 + margin.left + margin.right);
 
     this._isDirty = true;
     this.header.resize(INNER_WIDTH);

@@ -19,14 +19,14 @@ class Core {
     this.timer.addUpdateListener(listener);
   }
   removeTimerUpdateListener(listener) {
-    this.timer.removeStatusChangedListener(listener);
+    this.timer.removeUpdateListener(listener);
   }
 
   addTimerStatusChangedListener(listener) {
     this.timer.addStatusChangedListener(listener);
   }
   removeTimerStatusChangedListener(listener) {
-    this.timer.removeUpdateListener(listener);
+    this.timer.removeStatusChangedListener(listener);
   }
 
   addTimerDurationChangedListener(listener) {

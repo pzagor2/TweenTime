@@ -103,8 +103,8 @@ export default class Properties {
 
     this.renderPropertiesLabel(bar, properties);
 
-    this.renderKeyframeToggle(subGrp);
-    this.renderKeyframeValueInput(subGrp);
+    this.renderKeyframeToggle(properties);
+    this.renderKeyframeValueInput(properties);
 
     subGrp.append('line')
       .attr('class', 'line-separator--secondary')
@@ -162,8 +162,9 @@ export default class Properties {
       })
   }
 
-  renderKeyframeToggle(subGrp) {
-    const keyframeToggle = subGrp.append('g')
+  renderKeyframeToggle(parent) {
+    parent.selectAll('.keyframe-toggle').remove();
+    const keyframeToggle = parent.append('g')
       .attr('class', 'keyframe-toggle')
       .attr('transform', 'translate(-10, 10)')
       .attr('x', -10)
@@ -177,9 +178,7 @@ export default class Properties {
         const idx = d.keys.findIndex(k => k.time * 1000 === millis);
 
         if(idx !== -1) {
-          const [removedKey] = d.keys.splice(idx, 1);
-          d._line._isDirty = true;
-          this.onKeyRemoved.dispatch(removedKey);
+          this.timeline.editor.timelineService.removeKey(d.name, d.keys[idx]._id, d._line.id);
         }
         else {
           const def = d.default ? d.default : 0;
@@ -211,11 +210,13 @@ export default class Properties {
     return keyframeToggle;
   }
 
-  renderKeyframeValueInput(subGrp) {
-    const v = subGrp.append('g')
+  renderKeyframeValueInput(parent) {
+    parent.selectAll('.keyframe-value').remove();
+    const v = parent.append('g')
       .attr('class', 'line-label--small keyframe-value')
-      .attr('transform', 'translate(-70, 16)')
+      .attr('transform', 'translate(-70, 14)')
       .append('text')
+      .html(this.keyframeValueHTML.bind(this))
       .attr('text-anchor', 'middle');
 
     return v;

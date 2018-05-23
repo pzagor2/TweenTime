@@ -77,22 +77,7 @@ export default class Properties {
           def = prevKey.value;
         }
         // d._line = lineValue;
-        const newKey = {
-          time: dx,
-          value: def,
-          _property: d
-        };
-        if (core.options.defaultEase) {
-          newKey.ease = core.options.defaultEase;
-        }
-
-        d.keys.push(newKey);
-        // Sort the keys for tweens creation
-        d.keys = Utils.sortKeys(d.keys);
-        lineValue._isDirty = true;
-
-        lineValue._isDirty = true;
-        self.onKeyAdded.dispatch(newKey);
+        self.timeline.editor.timelineService.addKey(d._line.id, d.name, dx);
       });
 
     // Mask
@@ -181,24 +166,7 @@ export default class Properties {
           this.timeline.editor.timelineService.removeKey(d.name, d.keys[idx]._id, d._line.id);
         }
         else {
-          const def = d.default ? d.default : 0;
-          const prevKey = Utils.getPreviousKey(d.keys, seconds);
-          const newKey = {
-            time: seconds,
-            value: prevKey ? prevKey.value : def,
-            _property: d
-          };
-
-          const core = this.timeline.editor.tweenTime;
-          if(core.options.defaultEase) {
-            newKey.ease = core.options.defaultEase;
-          }
-
-          d.keys.push(newKey);
-          d.keys = Utils.sortKeys(d.keys);
-
-          d._line._isDirty = true;
-          this.onKeyAdded.dispatch(newKey);
+          this.timeline.editor.timelineService.addKey(d._line.id, d.name, seconds);
         }
       });
 

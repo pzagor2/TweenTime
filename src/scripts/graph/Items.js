@@ -167,7 +167,7 @@ export default class Items {
         var numProperties = 0;
         if (d.properties) {
           var visibleProperties = _.filter(d.properties, function(prop) {
-            return prop.keys.length;
+            return self.timeline.editor.options.showEmptyProperties || prop.keys.length;
           }).filter(function(p) {
             return !p.parent;
           });

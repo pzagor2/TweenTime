@@ -107,7 +107,7 @@ export default class Properties {
       });
 
     bar.selectAll('.line-item').attr('display', function(property) {
-      if (property._line.collapsed) {
+      if (property._line && property._line.collapsed) {
         return 'none';
       }
       return 'block';
@@ -191,6 +191,7 @@ export default class Properties {
   }
 
   keyframeValueHTML(d) {
+
     const millis = this.timeline.timer.last_time;
     const seconds = millis / 1000;
     const prevKey = Utils.getPreviousKey(d.keys, seconds);
@@ -198,15 +199,21 @@ export default class Properties {
     const val = currentKey ? currentKey.value : '';
 
     if(d.name === 'size' && val !== '') {
-      const w = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'width');
-      const h = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'height');
-      return `<tspan class="keyframe-value-input">${w}</tspan>(w) x <tspan class="keyframe-value-input">${h}</tspan>(h)`;
+      // Sometimes _line is undefined, I noticed it while editor/creative was initaly loading
+      if (d._line) {
+        const w = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'width');
+        const h = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'height');
+        return `<tspan class="keyframe-value-input">${w}</tspan>(w) x <tspan class="keyframe-value-input">${h}</tspan>(h)`;
+      }
     }
 
     if(d.name === 'position' && val !== '') {
-      const x = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'x');
-      const y = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'y');
-      return `<tspan class="keyframe-value-input">${x}</tspan>(x) x <tspan class="keyframe-value-input">${y}</tspan>(y)`;
+      // Sometimes _line is undefined, I noticed it while editor/creative was initaly loading
+      if (d._line) {
+        const x = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'x');
+        const y = this.timeline.editor.timelineService.applyAnimationValue(d._line.id, val, 'y');
+        return `<tspan class="keyframe-value-input">${x}</tspan>(x) x <tspan class="keyframe-value-input">${y}</tspan>(y)`;
+      }
     }
 
     if (d.name === 'opacity' && val !== '') {

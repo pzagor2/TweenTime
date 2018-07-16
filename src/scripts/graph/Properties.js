@@ -107,7 +107,7 @@ export default class Properties {
       });
 
     bar.selectAll('.line-item').attr('display', function(property) {
-      if (property._line && property._line.collapsed) {
+      if (!property._line || property._line.collapsed) {
         return 'none';
       }
       return 'block';

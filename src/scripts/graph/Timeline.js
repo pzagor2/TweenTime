@@ -234,7 +234,7 @@ export default class Timeline {
       this._isDirty = false;
 
       // Adapt the timeline height.
-      var height = Math.max(this.items.dy + 30, 230);
+      var height = Math.max(this.items.dy + 30, this.editor.$timeline.height() - 50);
       this.xAxis.tickSize(-height, 0);
       this.xAxisGrid.tickSize(-height, 0);
       this.xGrid.call(this.xAxisGrid);

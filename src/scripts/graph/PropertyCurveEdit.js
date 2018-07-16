@@ -165,7 +165,7 @@ export default class PropertyCurveEdit {
             }
           }
           // If we have selected the whole item show the curve too.
-          if (selectedItem.id && selectedItem.id === d._line.id) {
+          if (selectedItem.id && d._line && selectedItem.id === d._line.id) {
             return 'block';
           }
         }

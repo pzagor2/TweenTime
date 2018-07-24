@@ -226,6 +226,10 @@ export default class Properties {
       return `<tspan class="keyframe-value-input">${valPercentage}</tspan>%`;
     }
 
+    if(typeof val === 'number') {
+      return `<tspan class="keyframe-value-input">${val.toFixed(2)}°</tspan>`;
+    }
+
     return val;
   }
 

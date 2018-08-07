@@ -44,9 +44,9 @@ export default class KeysPreview {
         class: 'key--transitionBar',
         fill: 'white',
         'fill-opacity': 0.5,
-        height: 20,
+        height: 13,
         x: (key) => self.timeline.x(key.time * 1000 || 0),
-        y: -2.3,
+        y: 5,
         width: (key) => self.timeline.x(key.duration * 1000 || 0)
       });
 

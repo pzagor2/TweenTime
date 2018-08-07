@@ -61,5 +61,25 @@ export default class KeysPreview {
     });
 
     keys.exit().remove();
+
+    var transitionBars = properties.selectAll('.key--transitionBar')
+      .data(keyValue, keyKey)
+      .attr({
+        x: (key) => self.timeline.x(key.time * 1000 || 0),
+        width: (key) => self.timeline.x(key.duration * 1000 || 0)
+      });
+
+    transitionBars.enter().append('rect')
+      .attr({
+        class: 'key--transitionBar',
+        fill: 'white',
+        'fill-opacity': 0.5,
+        height: 20,
+        x: (key) => self.timeline.x(key.time * 1000 || 0),
+        y: -2.3,
+        width: (key) => self.timeline.x(key.duration * 1000 || 0)
+      });
+
+    transitionBars.exit().remove();
   }
 }

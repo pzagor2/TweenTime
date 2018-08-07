@@ -199,12 +199,12 @@ export default class Keys {
 
     keys.append('rect')
       .attr({
-        class: 'key-transitionBar',
+        class: 'key--transitionBar',
         fill: 'white',
         height: 12,
         y: -6
       });
-    keys.select('.key-transitionBar')
+    keys.select('.key--transitionBar')
       .attr({
         width: (key) => self.timeline.x(key.duration * 1000 || 0)
       });

@@ -201,8 +201,9 @@ export default class Keys {
       .attr({
         class: 'key--transitionBar',
         fill: 'white',
-        height: 12,
-        y: -6
+        'fill-opacity': 0.5,
+        height: 5,
+        y: -2.3
       });
     keys.select('.key--transitionBar')
       .attr({

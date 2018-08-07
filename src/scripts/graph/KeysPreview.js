@@ -1,3 +1,4 @@
+// Actually this is not keys preview but transition preview
 export default class KeysPreview {
   constructor(timeline, container) {
     this.timeline = timeline;
@@ -24,43 +25,12 @@ export default class KeysPreview {
       .append('g')
       .attr('class', 'keys-preview');
 
-    var setItemStyle = function(d) {
-      if (!d._property || !d._property._line) {
-        return 'display: none;';
-      }
-      const lineData = d._property._line;
-      if (lineData.collapsed === true) {
-        return '';
-      }
-      // Show only when item is collapsed
-      return 'display: none;';
-    };
-
-    properties.selectAll('.key--preview')
-      .attr('style', setItemStyle);
-
     var keyValue = function(d) {
       return d.keys;
     };
     var keyKey = function(d) {
       return d.time;
     };
-    var keys = properties.selectAll('.key--preview').data(keyValue, keyKey);
-
-    keys.enter()
-      .append('path')
-      .attr('class', 'key--preview')
-      .attr('style', setItemStyle)
-      .attr('d', 'M 0 -4 L 4 0 L 0 4 L -4 0');
-
-    keys.attr('transform', function(d) {
-      let dx = self.timeline.x(d.time * 1000);
-      dx = parseInt(dx, 10);
-      let dy = 11;
-      return 'translate(' + dx + ',' + dy + ')';
-    });
-
-    keys.exit().remove();
 
     var transitionBars = properties.selectAll('.key--transitionBar')
       .data(keyValue, keyKey)

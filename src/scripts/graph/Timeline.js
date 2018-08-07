@@ -155,6 +155,16 @@ export default class Timeline {
       .attr('transform', 'translate(0,' + margin.top + ')')
       .call(this.xAxis);
 
+    this.verticalSeparator = this.svgContainer.append('line')
+      .attr('class', 'vertical-separator')
+      .attr('stroke', '#000')
+      .attr({
+        x1: -10,
+        y1: -10,
+        x2: -10,
+        y2: 600,
+      });
+
     this.header.onBrush.add((extent) => {
       this.x.domain(extent);
       this.xGrid.call(this.xAxisGrid);
@@ -243,6 +253,7 @@ export default class Timeline {
       this.xBigRulerElement.call(this.xBigRulerAxis);
       this.svg.attr('height', height);
       this.svgGrid.attr('height', height);
+      this.verticalSeparator.attr('y2', height);
       this.timeIndicator.updateHeight(height);
     }
   }

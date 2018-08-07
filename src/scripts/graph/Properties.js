@@ -152,7 +152,7 @@ export default class Properties {
     parent.selectAll('.keyframe-toggle').remove();
     const keyframeToggle = parent.append('g')
       .attr('class', 'keyframe-toggle')
-      .attr('transform', 'translate(-10, 10)')
+      .attr('transform', 'translate(-20, 10)')
       .attr('stroke', '#bbb')
       .attr('fill', '#bbb')
       .attr('fill-opacity', this.keyframeFillOpacity.bind(this))

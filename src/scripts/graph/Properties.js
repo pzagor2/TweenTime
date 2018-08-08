@@ -85,7 +85,7 @@ export default class Properties {
       .attr('class', 'line-item__keys timeline__right-mask')
       .attr('width', window.innerWidth - self.timeline.label_position_x)
       .attr('height', self.timeline.lineHeight)
-      .attr('x', -10); // to show whole key diamond. See Keys.js
+      .attr('x', -10); // to show whole key diamond at 0. See Keys.js
 
     this.renderPropertiesLabel(bar, properties);
 

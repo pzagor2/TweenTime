@@ -264,7 +264,7 @@ export default class Keys {
 
     keys.attr('transform', function(d) {
       var dx = self.timeline.x(d.time * 1000);
-      dx = parseInt(dx, 10) + 10; // +10 to show whole key diamond. See Properties.js
+      dx = parseInt(dx, 10) + 10; // +10 to show whole key diamond at 0. See Properties.js
       var dy = self.timeline.lineHeight / 2;
       return 'translate(' + dx + ',' + dy + ')';
     });

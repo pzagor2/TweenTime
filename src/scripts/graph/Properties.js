@@ -84,7 +84,8 @@ export default class Properties {
     subGrp.append('svg')
       .attr('class', 'line-item__keys timeline__right-mask')
       .attr('width', window.innerWidth - self.timeline.label_position_x)
-      .attr('height', self.timeline.lineHeight);
+      .attr('height', self.timeline.lineHeight)
+      .attr('x', -10); // to show whole key diamond at 0. See Keys.js
 
     this.renderPropertiesLabel(bar, properties);
 
@@ -151,9 +152,7 @@ export default class Properties {
     parent.selectAll('.keyframe-toggle').remove();
     const keyframeToggle = parent.append('g')
       .attr('class', 'keyframe-toggle')
-      .attr('transform', 'translate(-10, 10)')
-      .attr('x', -10)
-      .attr('y', 10)
+      .attr('transform', 'translate(-20, 10)')
       .attr('stroke', '#bbb')
       .attr('fill', '#bbb')
       .attr('fill-opacity', this.keyframeFillOpacity.bind(this))

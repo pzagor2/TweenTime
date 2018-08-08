@@ -142,18 +142,28 @@ export default class Timeline {
 
     this.xSmallRulerElement = this.svgContainer.append('g')
       .attr('class', 'x ruler ruler--small')
-      .attr('transform', 'translate(0,' + (margin.top + 3) + ')')
+      .attr('transform', 'translate(0,' + (margin.top + 7) + ')')
       .call(this.xSmallRulerAxis);
 
     this.xBigRulerElement = this.svgContainer.append('g')
       .attr('class', 'x ruler ruler--big')
-      .attr('transform', 'translate(0,' + (margin.top + 3) + ')')
+      .attr('transform', 'translate(0,' + (margin.top + 7) + ')')
       .call(this.xBigRulerAxis);
 
     this.xAxisElement = this.svgContainer.append('g')
       .attr('class', 'x axis')
       .attr('transform', 'translate(0,' + margin.top + ')')
       .call(this.xAxis);
+
+    this.verticalSeparator = this.svgContainer.append('line')
+      .attr('class', 'vertical-separator')
+      .attr('stroke', '#000')
+      .attr({
+        x1: -10,
+        y1: -10,
+        x2: -10,
+        y2: 600,
+      });
 
     this.header.onBrush.add((extent) => {
       this.x.domain(extent);
@@ -234,15 +244,16 @@ export default class Timeline {
       this._isDirty = false;
 
       // Adapt the timeline height.
-      var height = Math.max(this.items.dy + 30, this.editor.$timeline.height() - 50);
+      var height = Math.max(this.items.dy + 30, this.editor.$timeline.height() - 22);
       this.xAxis.tickSize(-height, 0);
       this.xAxisGrid.tickSize(-height, 0);
       this.xGrid.call(this.xAxisGrid);
       this.xAxisElement.call(this.xAxis);
       this.xSmallRulerElement.call(this.xSmallRulerAxis);
       this.xBigRulerElement.call(this.xBigRulerAxis);
-      this.svg.attr('height', height);
+      this.svg.attr('height', height - 30);
       this.svgGrid.attr('height', height);
+      this.verticalSeparator.attr('y2', height);
       this.timeIndicator.updateHeight(height);
     }
   }

@@ -117,13 +117,12 @@ export default class Items {
       .attr('class', 'line-grp')
       .attr('data-element-type', d => d.elementType || 'unknown');
 
-    // Create highlight layer
     barEnter.append('rect')
-      .attr('class', 'highlight-layer')
+      .attr('class', 'element-background')
       .attr('x', -300)
       .attr('y', 0)
       .attr('width', window.innerWidth - self.timeline.label_position_x)
-      .attr('height', 22);
+      .attr('height', self.timeline.lineHeight);
 
     const barContainerRight = barEnter.append('svg')
       .attr({
@@ -162,7 +161,8 @@ export default class Items {
     self.dy = 10 + this.timeline.margin.top;
     bar.attr('transform', function(d) {
       var y = self.dy;
-      self.dy += self.timeline.lineHeight;
+      var rowHeight = self.timeline.lineHeight + self.timeline.separatorHeight;
+      self.dy += rowHeight;
       if (!d.collapsed) {
         var numProperties = 0;
         if (d.properties) {
@@ -173,7 +173,7 @@ export default class Items {
           });
           numProperties = visibleProperties.length;
         }
-        self.dy += numProperties * self.timeline.lineHeight;
+        self.dy += numProperties * rowHeight;
       }
       return 'translate(0,' + y + ')';
     });
@@ -273,19 +273,19 @@ export default class Items {
       .attr('x', (d) => self.timeline.label_position_x - 10 + indentWidthOf(d))
       .text((d) => d.collapsed ? '▸' : '▾');
 
-    barEnter.append('line')
+    barEnter.append('rect')
       .attr('class', 'line-separator')
-      .attr('x1', -self.timeline.margin.left)
-      .attr('y1', self.timeline.lineHeight)
-      .attr('y2', self.timeline.lineHeight);
+      .attr('x', -self.timeline.margin.left)
+      .attr('y', self.timeline.lineHeight)
+      .attr('height', self.timeline.separatorHeight);
 
     // Hide property line separator if curve editor is enabled.
     bar.selectAll('.line-separator')
-      .attr('x2', function() {
+      .attr('width', function() {
         if (editor.curveEditEnabled) {
           return 0;
         }
-        return self.timeline.x(self.timeline.timer.totalDuration + 100);
+        return -self.timeline.margin.left + self.timeline.x(self.timeline.timer.totalDuration + 100);
       });
 
     bar.exit().remove();

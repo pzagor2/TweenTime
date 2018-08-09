@@ -34,7 +34,8 @@ export default class Properties {
   }
 
   setSublineHeight(d, i) {
-    const sub_height = (i + 1) * this.timeline.lineHeight;
+    const rowHeight = this.timeline.lineHeight + this.timeline.separatorHeight;
+    const sub_height = (i + 1) * rowHeight;
     return 'translate(0,' + sub_height + ')';
   }
 
@@ -54,6 +55,13 @@ export default class Properties {
     this.bar = bar;
 
     properties.attr('transform', (d, i) => this.setSublineHeight(d, i));
+
+    subGrp.append('rect')
+      .attr('class', 'property-background')
+      .attr('x', -300)
+      .attr('y', 0)
+      .attr('width', window.innerWidth - self.timeline.label_position_x)
+      .attr('height', self.timeline.lineHeight);
 
     subGrp.append('rect')
       .attr('class', 'click-handler click-handler--property')
@@ -92,19 +100,19 @@ export default class Properties {
     this.renderKeyframeToggle(properties);
     this.renderKeyframeValueInput(properties);
 
-    subGrp.append('line')
+    subGrp.append('rect')
       .attr('class', 'line-separator--secondary')
-      .attr('x1', -self.timeline.margin.left)
-      .attr('y1', self.timeline.lineHeight)
-      .attr('y2', self.timeline.lineHeight);
+      .attr('x', -self.timeline.margin.left)
+      .attr('y', self.timeline.lineHeight)
+      .attr('height', self.timeline.separatorHeight);
 
     // Hide property line separator if curve editor is enabled.
     bar.selectAll('.line-separator--secondary')
-      .attr('x2', function() {
+      .attr('width', function() {
         if (editor.curveEditEnabled) {
           return 0;
         }
-        return self.timeline.x(self.timeline.timer.totalDuration + 100);
+        return -self.timeline.margin.left + self.timeline.x(self.timeline.timer.totalDuration + 100);
       });
 
     bar.selectAll('.line-item').attr('display', function(property) {

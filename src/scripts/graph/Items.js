@@ -117,9 +117,9 @@ export default class Items {
       .attr('class', 'line-grp')
       .attr('data-element-type', d => d.elementType || 'unknown');
 
-    // Create highlight layer
+    // Create element line
     barEnter.append('rect')
-      .attr('class', 'highlight-layer')
+      .attr('class', 'element-line')
       .attr('x', -300)
       .attr('y', 0)
       .attr('width', window.innerWidth - self.timeline.label_position_x)

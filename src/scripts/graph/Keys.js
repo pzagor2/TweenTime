@@ -7,6 +7,8 @@ export default class Keys {
   constructor(timeline) {
     this.timeline = timeline;
     this.onKeyUpdated = new Signals.Signal();
+    this.onKeyDrag = new Signals.Signal();
+    this.onKeyDragEnd = new Signals.Signal();
   }
 
   selectNewKey(data) {
@@ -106,6 +108,7 @@ export default class Keys {
 
       lineData._isDirty = true;
       self.onKeyUpdated.dispatch();
+      self.onKeyDrag.dispatch();
     };
 
     var propValue = function(d) {
@@ -152,6 +155,7 @@ export default class Keys {
 
     var dragend = function() {
       self.timeline.editor.undoManager.addState();
+      self.onKeyDragEnd.dispatch();
     };
 
     var drag = d3.behavior.drag()

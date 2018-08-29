@@ -1,3 +1,4 @@
+console.log(`# hello?`);
 let d3 = require('d3');
 
 let Signals = require('js-signals');
@@ -35,7 +36,7 @@ export default class Header {
 
     this.svg.append('path')
       .attr('class', 'timeline__header__bottom')
-      .attr('d', `M 0 50 l ${svgWidth} 0`)  // svgHeight is overlapped by the element `.timeline__grid`
+      .attr('d', `M 0 49 l ${svgWidth} 0`)  // svgHeight is overlapped by the element `.timeline__grid`
       .attr('stroke', '#aaa');
 
     this.svgContainer = this.svg.append('g')

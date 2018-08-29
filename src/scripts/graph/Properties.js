@@ -189,7 +189,7 @@ export default class Properties {
     parent.selectAll('.keyframe-value').remove();
     const v = parent.append('g')
       .attr('class', 'line-label--small keyframe-value')
-      .attr('transform', 'translate(-70, 14)')
+      .attr('transform', 'translate(-85, 14)')
       .append('text')
       .html(this.keyframeValueHTML.bind(this))
       .attr('text-anchor', 'middle');

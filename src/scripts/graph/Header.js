@@ -1,4 +1,3 @@
-console.log(`# hello?`);
 let d3 = require('d3');
 
 let Signals = require('js-signals');

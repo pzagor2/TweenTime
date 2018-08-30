@@ -23,6 +23,7 @@ export default class Keys {
       data._dom = key;
       self.timeline.selectionManager.select(data);
     }
+    keys.order();
   }
 
   render(properties) {
@@ -274,5 +275,6 @@ export default class Keys {
     });
 
     keys.exit().remove();
+    keys.order();
   }
 }

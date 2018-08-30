@@ -175,9 +175,10 @@ class Core {
         key.ease = this.options.defaultEase;
       }
       property.keys.push(key);
-      // Also sort the keys.
-      property.keys = Utils.sortKeys(property.keys);
     }
+
+    // Also sort the keys.
+    property.keys = Utils.sortKeys(property.keys);
   }
 
   setKeyData(property, key_id, value, time, easing) {
@@ -237,9 +238,10 @@ class Core {
         key.ease = new_easing;
       }
       property.keys.push(key);
-      // Also sort the keys.
-      property.keys = Utils.sortKeys(property.keys);
     }
+
+    // Also sort the keys.
+    property.keys = Utils.sortKeys(property.keys);
   }
 
   getTotalDuration() {

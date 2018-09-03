@@ -34,7 +34,7 @@ export default class Properties {
   }
 
   setSublineHeight(d, i) {
-    const rowHeight = this.timeline.lineHeight + this.timeline.separatorHeight;
+    const rowHeight = this.timeline.propertyLineHeight + this.timeline.separatorHeight;
     const sub_height = (i + 1) * rowHeight;
     return 'translate(0,' + sub_height + ')';
   }
@@ -61,14 +61,14 @@ export default class Properties {
       .attr('x', -300)
       .attr('y', 0)
       .attr('width', window.innerWidth - self.timeline.label_position_x)
-      .attr('height', self.timeline.lineHeight);
+      .attr('height', self.timeline.propertyLineHeight);
 
     subGrp.append('rect')
       .attr('class', 'click-handler click-handler--property')
       .attr('x', 0)
       .attr('y', 0)
       .attr('width', self.timeline.x(self.timeline.timer.totalDuration + 100))
-      .attr('height', self.timeline.lineHeight)
+      .attr('height', self.timeline.propertyLineHeight)
       .on('dblclick', function(d) {
         const lineValue = d._line;
         let def = d.default ? d.default : 0;
@@ -92,7 +92,7 @@ export default class Properties {
     subGrp.append('svg')
       .attr('class', 'line-item__keys timeline__right-mask')
       .attr('width', window.innerWidth - self.timeline.label_position_x)
-      .attr('height', self.timeline.lineHeight)
+      .attr('height', self.timeline.propertyLineHeight)
       .attr('x', -10); // to show whole key diamond at 0. See Keys.js
 
     this.renderPropertiesLabel(bar, properties);
@@ -103,7 +103,7 @@ export default class Properties {
     subGrp.append('rect')
       .attr('class', 'line-separator--secondary')
       .attr('x', -self.timeline.margin.left)
-      .attr('y', self.timeline.lineHeight)
+      .attr('y', self.timeline.propertyLineHeight)
       .attr('height', self.timeline.separatorHeight);
 
     // Hide property line separator if curve editor is enabled.
@@ -137,12 +137,12 @@ export default class Properties {
 
   renderPropertiesLabel(bar, subGrp) {
     var _this = this;
-    var colorSampleSize = this.timeline.lineHeight * 0.6;
+    var colorSampleSize = this.timeline.propertyLineHeight * 0.6;
     subGrp.selectAll('.line-label.line-label--sub.line-label--small').remove();
     subGrp.append('text')
       .attr({
         class: 'line-label line-label--sub line-label--small',
-        y: this.timeline.lineHeight / 2,
+        y: this.timeline.propertyLineHeight / 2,
         dy: '0.3em'  // centering
       })
       .text((d) => d.name)
@@ -152,7 +152,7 @@ export default class Properties {
       });
     subGrp.select('.line-label')
       .attr({
-        x: (d) => this.timeline.label_position_x + this.indentWidthOf(d) + colorSampleSize + 10
+        x: (d) => this.timeline.label_position_x + this.indentWidthOf(d) + colorSampleSize + 10 - 3
       })
   }
 

@@ -134,7 +134,7 @@ export default class Items {
     bar.select('.timeline__right-mask')
       .attr({
         display: () => self.timeline.editor.curveEditEnabled ? 'none' : 'block',
-        height: (d) => (d.properties.length + 1) * self.timeline.lineHeight
+        height: (d) => (d.properties.length + 1) * self.timeline.propertyLineHeight
       });
 
     barContainerRight.append('rect')
@@ -161,8 +161,7 @@ export default class Items {
     self.dy = 10 + this.timeline.margin.top;
     bar.attr('transform', function(d) {
       var y = self.dy;
-      var rowHeight = self.timeline.lineHeight + self.timeline.separatorHeight;
-      self.dy += rowHeight;
+      self.dy += self.timeline.lineHeight + self.timeline.separatorHeight;
       if (!d.collapsed) {
         var numProperties = 0;
         if (d.properties) {
@@ -173,6 +172,7 @@ export default class Items {
           });
           numProperties = visibleProperties.length;
         }
+        var rowHeight = self.timeline.propertyLineHeight + self.timeline.separatorHeight;
         self.dy += numProperties * rowHeight;
       }
       return 'translate(0,' + y + ')';

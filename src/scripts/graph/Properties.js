@@ -152,7 +152,7 @@ export default class Properties {
       });
     subGrp.select('.line-label')
       .attr({
-        x: (d) => this.timeline.label_position_x + this.indentWidthOf(d) + colorSampleSize + 10 + 30
+        x: (d) => this.timeline.label_position_x + this.indentWidthOf(d) + colorSampleSize + 10
       })
   }
 

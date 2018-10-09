@@ -2,6 +2,7 @@ let d3 = require('d3');
 
 let Signals = require('js-signals');
 import Utils from '../core/Utils';
+import { onAllElementsToggled } from './graphSignals';
 
 export default class Header {
   constructor(editor, timer, initialDomain, tweenTime, width, margin) {
@@ -41,6 +42,7 @@ export default class Header {
     this.svgContainer = this.svg.append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
 
+    this.createControls();
     this.createBrushHandle();
     this.createTimeHandle();
     this.timer.durationChanged.add(this.onDurationChanged.bind(this));
@@ -91,6 +93,34 @@ export default class Header {
     this.xAxisElement.call(this.xAxis);
     this.initialDomain = this.adaptDomainToDuration(this.initialDomain, seconds);
     this.setDomain(this.initialDomain);
+  }
+
+  createControls() {
+    var g = this.svg.append('g')
+      .attr('transform', 'translate(' + 10 + ',' + (this.margin.top + 35) + ')');
+
+
+    g.append('text')
+      .attr('class', 'btn-link')
+      .attr('transform', 'translate(0,0)')
+      .style({
+        'font-size': '13px'
+      })
+      .text('▾ Expand')
+      .on('click', () => {
+        onAllElementsToggled.dispatch({ collapsed: false });
+      });
+
+    g.append('text')
+      .attr('class', 'btn-link')
+      .attr('transform', 'translate(80,0)')
+      .style({
+        'font-size': '13px'
+      })
+      .text('▸ Collapse')
+      .on('click', () => {
+        onAllElementsToggled.dispatch({ collapsed: true });
+      });
   }
 
   createBrushHandle() {

@@ -1,4 +1,5 @@
 var tpl_timeline = require('./templates/timeline.tpl.html');
+import { onAllElementsToggled } from './graph/graphSignals';
 import Timeline from './graph/Timeline';
 // import PropertiesEditor from './editor/PropertiesEditor';
 import EditorMenu from './editor/EditorMenu';
@@ -51,6 +52,7 @@ class Editor {
       // Propagate the event.
       self.onSelect.dispatch(selection, addToSelection);
     });
+    this.onAllElementsToggled = onAllElementsToggled;
 
     // Will help resize the canvas to correct size (minus sidebar and timeline)
     window.editorEnabled = true;

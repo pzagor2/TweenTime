@@ -115,18 +115,12 @@ export default class SelectionManager {
 
     for (var i = 0; i < this.selection.length; i++) {
       var data = this.selection[i];
-      // find dom element from all .line-grps
-      var allGrps = d3.selectAll('.line-grp')[0];
-      var foudnNode = _.find(allGrps, (item) => {
-        var itemData = item.__data__;
-        if (itemData.id === data.id) {
-          return true;
-        }
-      });
 
-
-      // var domEl = allGrps[foundNodeIndex];
       if (!data._dom) {
+        // (why is this only for `.line-grp` ?)
+        var foudnNode = d3.selectAll('.line-grp')[0]
+          .find((el) => el.__data__.id === data.id);
+
         data._dom = foudnNode;
       }
 

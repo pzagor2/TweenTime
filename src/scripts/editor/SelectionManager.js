@@ -132,6 +132,8 @@ export default class SelectionManager {
         }
         else if (d3item.classed('key')) {
           d3item.classed('key--selected', true);
+          var lineDom = data._property._line._dom;
+          d3.select(lineDom).classed('line--selected', true);
         }
         else if (d3item.classed('line-grp')) {
           d3item.classed('line--selected', true);

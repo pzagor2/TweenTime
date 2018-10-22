@@ -48,7 +48,7 @@ export default class Keys {
                          // because of recursive calling
       }
 
-      var selection = self.timeline.selectionManager.getSelection();
+      var selection = self.timeline.selectionManager.getSelection({ type: 'key' });
       var selection_first_time = false;
       var selection_last_time = false;
       if (selection.length) {
@@ -151,7 +151,8 @@ export default class Keys {
       // Also keep a reference to the key dom element.
       key_data._dom = this;
 
-      self.timeline.selectionManager.select(key_data, addToSelection);
+      var items = [key_data, key_data._property._line];
+      self.timeline.selectionManager.select(items, addToSelection);
     };
 
     var dragend = function() {

@@ -37,7 +37,14 @@ export default class SelectionManager {
     this.onSelect.dispatch(this.selection, addToSelection);
   }
 
-  getSelection() {
+  getSelection(options) {
+    options = options || {};
+
+    if (options.type === 'key') {
+      // it might be better to contain item type
+      return this.selection.filter((item) => item.ease);
+    }
+
     return this.selection;
   }
 

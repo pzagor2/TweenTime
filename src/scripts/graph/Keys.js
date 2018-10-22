@@ -121,7 +121,9 @@ export default class Keys {
       }
       return d._id;
     };
-    var keys = properties.select('.line-item__keys').selectAll('.key').data(propValue, propKey);
+    var keys = properties.select('.line-item__keys').selectAll('.key')
+      .data(propValue, propKey)
+      .classed('key--selected', (d) => d.selected);
 
     // Hide keys if curve editor mode.
     properties.select('.line-item__keys').attr('display', function() {

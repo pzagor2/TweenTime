@@ -19,6 +19,7 @@ export default class SelectionManager {
 
   select(item, addToSelection = false) {
     if (!addToSelection) {
+      this.selection.forEach((item) => item.selected = false);
       this.selection = [];
     }
     if (item instanceof Array) {
@@ -31,8 +32,8 @@ export default class SelectionManager {
       this.selection.push(item);
     }
 
+    this.selection.forEach((item) => item.selected = true);
     this.removeDuplicates();
-    this.highlightItems();
     this.sortSelection();
     this.onSelect.dispatch(this.selection, addToSelection);
   }
@@ -103,47 +104,12 @@ export default class SelectionManager {
   }
 
   reset() {
+    this.selection.forEach((item) => item.selected = false);
     this.selection = [];
-    this.highlightItems();
     this.onSelect.dispatch(this.selection, false);
   }
 
   triggerSelect() {
     this.onSelect.dispatch(this.selection, false);
-  }
-
-  highlightItems() {
-    d3.selectAll('.bar--selected').classed('bar--selected', false);
-    d3.selectAll('.key--selected').classed('key--selected', false);
-    d3.selectAll('.line--selected').classed('line--selected', false);
-
-    // d3.selectAll('.line-label').classed('line-selected', false);
-    // d3.select(this).classed('line-selected', true);
-
-    for (var i = 0; i < this.selection.length; i++) {
-      var data = this.selection[i];
-
-      if (!data._dom) {
-        // (why is this only for `.line-grp` ?)
-        var foudnNode = d3.selectAll('.line-grp')[0]
-          .find((el) => el.__data__.id === data.id);
-
-        data._dom = foudnNode;
-      }
-
-      if (data._dom) {
-        var d3item = d3.select(data._dom);
-
-        if (d3item.classed('bar')) {
-          d3item.classed('bar--selected', true);
-        }
-        else if (d3item.classed('key')) {
-          d3item.classed('key--selected', true);
-        }
-        else if (d3item.classed('line-grp')) {
-          d3item.classed('line--selected', true);
-        }
-      }
-    }
   }
 }

@@ -2,6 +2,7 @@ let d3 = require('d3');
 let Signals = require('js-signals');
 let _ = require('lodash');
 import Utils from '../core/Utils';
+import { onElementToggled } from './graphSignals';
 
 export default class Items {
   constructor(timeline, container) {
@@ -267,8 +268,10 @@ export default class Items {
       .attr('y', self.timeline.lineHeight / 2)
       .attr('dy', '0.3em')  // centering
       .on('click', function(d) {
-        d.collapsed = !d.collapsed;
-        self.onUpdate.dispatch();
+        onElementToggled.dispatch({
+          data: d,
+          collapsed: !d.collapsed,
+        });
       });
     bar.select('.line__toggle')
       .attr('x', (d) => self.timeline.label_position_x - 10 + indentWidthOf(d))

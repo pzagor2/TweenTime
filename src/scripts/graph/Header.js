@@ -97,27 +97,18 @@ export default class Header {
 
   createControls() {
     var g = this.svg.append('g')
-      .attr('transform', 'translate(' + 10 + ',' + (this.margin.top + 35) + ')');
-
+      .attr('transform', 'translate(' + 10 + ',' + (this.margin.top + 40) + ')');
 
     g.append('text')
-      .attr('class', 'btn-link')
-      .attr('transform', 'translate(0,0)')
-      .style({
-        'font-size': '13px'
-      })
-      .text('▾ Expand')
+      .attr('class', 'btn-link timeline__header__expandAll')
+      .text('▾')
       .on('click', () => {
         onAllElementsToggled.dispatch({ collapsed: false });
       });
 
     g.append('text')
-      .attr('class', 'btn-link')
-      .attr('transform', 'translate(80,0)')
-      .style({
-        'font-size': '13px'
-      })
-      .text('▸ Collapse')
+      .attr('class', 'btn-link timeline__header__collapseAll')
+      .text('▸')
       .on('click', () => {
         onAllElementsToggled.dispatch({ collapsed: true });
       });

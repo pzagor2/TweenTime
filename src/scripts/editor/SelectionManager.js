@@ -38,6 +38,16 @@ export default class SelectionManager {
     this.onSelect.dispatch(this.selection, addToSelection);
   }
 
+  selectProperty(property, addToSelection) {
+    var items = [property, property._line];
+    this.select(items, addToSelection);
+  }
+
+  selectKey(key, addToSelection) {
+    var items = [key, key._property._line];
+    this.select(items, addToSelection);
+  }
+
   getSelection(options) {
     options = options || {};
 

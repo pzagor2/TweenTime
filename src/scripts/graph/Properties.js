@@ -148,8 +148,7 @@ export default class Properties {
       .text((d) => d.name)
       .on('click', function(d) {
         d._dom = this.parentElement.parentElement;
-        var items = [d, d._line];
-        _this.timeline.selectionManager.select(items);
+        _this.timeline.selectionManager.selectProperty(d);
       });
     subGrp.select('.line-label')
       .attr({

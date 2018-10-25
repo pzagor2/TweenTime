@@ -98,6 +98,14 @@ class Editor {
     this.selectionManager.select(item, addToSelection);
   }
 
+  selectProperty(item, addToSelection = false) {
+    this.selectionManager.selectProperty(item, addToSelection);
+  }
+
+  selectKey(item, addToSelection = false) {
+    this.selectionManager.selectKey(item, addToSelection);
+  }
+
   setHeaderEndTime(seconds) {
     var miliseconds = seconds * 1000;
     this.timeline.setHeaderDomain([0, miliseconds]);

@@ -242,6 +242,8 @@ class Core {
 
     // Also sort the keys.
     property.keys = Utils.sortKeys(property.keys);
+
+    return key;
   }
 
   getTotalDuration() {

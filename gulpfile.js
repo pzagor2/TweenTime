@@ -184,7 +184,7 @@ gulp.task('watch', function() {
   gulp.watch(['examples/*.html'], browserSync.reload);
   gulp.watch(['dist/scripts/*.js'], browserSync.reload);
   gulp.watch('src/styles/**', ['styles']);
-  gulp.watch(['src/scripts/**', '!src/scripts/bower_components/**'], ['scripts:dist']);
+  gulp.watch(['src/scripts/**', '!src/scripts/bower_components/**'], ['scripts', 'scripts:dist']);
 });
 
 gulp.task('default', ['watch', 'styles', 'scripts:dist', 'browser-sync']);

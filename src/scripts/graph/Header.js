@@ -97,18 +97,18 @@ export default class Header {
 
   createControls() {
     var g = this.svg.append('g')
-      .attr('transform', 'translate(' + 10 + ',' + (this.margin.top + 40) + ')');
+      .attr('transform', 'translate(' + 6 + ',' + (this.margin.top + 38) + ')');
 
     g.append('text')
-      .attr('class', 'btn-link timeline__header__expandAll')
-      .text('▾')
+      .attr('class', 'timeline__header__expandAll')
+      .text('▸')
       .on('click', () => {
         onAllElementsToggled.dispatch({ collapsed: false });
       });
 
     g.append('text')
-      .attr('class', 'btn-link timeline__header__collapseAll')
-      .text('▸')
+      .attr('class', 'timeline__header__collapseAll')
+      .text('▾')
       .on('click', () => {
         onAllElementsToggled.dispatch({ collapsed: true });
       });

@@ -1,6 +1,7 @@
 let d3 = require('d3');
 let Signals = require('js-signals');
 import Utils from '../core/Utils';
+let _ = require('lodash');
 
 export default class Properties {
   constructor(timeline) {
@@ -225,16 +226,16 @@ export default class Properties {
 
     if (d.name === 'opacity' && val !== '') {
       const valPercentage = val * 100;
-      return `<tspan class="keyframe-value-input">${valPercentage}</tspan>%`;
+      return `<tspan class="keyframe-value-input">${_.round(valPercentage, 2)}</tspan>%`;
     }
 
     if (d.name === 'scale' && val !== '') {
       const valPercentage = val * 100;
-      return `<tspan class="keyframe-value-input">${valPercentage}</tspan>%`;
+      return `<tspan class="keyframe-value-input">${_.round(valPercentage, 2)}</tspan>%`;
     }
 
     if(typeof val === 'number') {
-      return `<tspan class="keyframe-value-input">${val.toFixed(2)}°</tspan>`;
+      return `<tspan class="keyframe-value-input">${_.round(val, 2)}°</tspan>`;
     }
 
     return val;

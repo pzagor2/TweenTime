@@ -159,6 +159,10 @@ class Editor {
   }
 
   update() {
+    if (!this.timelineService.isReady()) {
+      return;
+    }
+
     var time = this.timer.time[0];
     var time_changed = this.lastTime === time ? false : true;
 

@@ -1,22 +1,22 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var path = require("path");
+var path = require('path');
 var sass = require('gulp-sass');
-var autoprefixer = require("gulp-autoprefixer");
+var autoprefixer = require('gulp-autoprefixer');
 var minifyCss = require('gulp-minify-css');
 var sourcemaps = require('gulp-sourcemaps');
-var webpack = require("webpack");
+var webpack = require('webpack');
 var eslint = require('gulp-eslint');
 var browserSync = require('browser-sync').create();
 
 var getWebpackConfig = function() {
   return {
-    context: __dirname + "/src/scripts",
+    context: __dirname + '/src/scripts',
     entry: {
-      Core: "./Core",
-      Editor: "./Editor",
+      Core: './Core',
+      Editor: './Editor',
     },
-    devtool: "eval-source-map",
+    devtool: 'eval-source-map',
     externals: [
       'd3',
       {
@@ -71,10 +71,10 @@ var getWebpackConfig = function() {
       }
     ],
     output: {
-        path: path.join(__dirname, "dist/scripts"),
-        filename: "TweenTime.[name].js",
-        libraryTarget: "umd",
-        library: ["TweenTime", "[name]"]
+      path: path.join(__dirname, 'dist/scripts'),
+      filename: 'TweenTime.[name].js',
+      libraryTarget: 'umd',
+      library: ['TweenTime', '[name]']
     },
     module: {
       loaders: [
@@ -94,7 +94,7 @@ var getWebpackConfig = function() {
     },
     plugins: [
       new webpack.ResolverPlugin(
-          new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+          new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
       )
     ],
   };
@@ -104,7 +104,7 @@ gulp.task('lint-scripts', function() {
   gulp.src([
     'src/scripts/**/*.js',
     '!src/scripts/bower_components/**'
-    ])
+  ])
     .pipe(eslint())
     .pipe(eslint.formatEach('stylish', process.stderr));
 });
@@ -112,9 +112,9 @@ gulp.task('lint-scripts', function() {
 gulp.task('scripts', function(cb) {
   var conf = getWebpackConfig();
   webpack(conf, function(err, stats) {
-    if(err) throw new gutil.PluginError("webpack", err);
-    gutil.log("[webpack]", stats.toString({
-        chunks: false
+    if (err) throw new gutil.PluginError('webpack', err);
+    gutil.log('[webpack]', stats.toString({
+      chunks: false
     }));
     cb();
   });
@@ -123,7 +123,7 @@ gulp.task('scripts', function(cb) {
 gulp.task('scripts:dist', ['lint-scripts'], function(cb) {
   var conf = getWebpackConfig();
   // Add .min.js to output filename.
-  conf.output.filename = "TweenTime.[name].min.js";
+  conf.output.filename = 'TweenTime.[name].min.js';
   // Add minification with UglifyJs.
   conf.plugins.push(new webpack.optimize.UglifyJsPlugin({
     mangle: true,
@@ -143,9 +143,9 @@ gulp.task('scripts:dist', ['lint-scripts'], function(cb) {
     }
   }));
   webpack(conf, function(err, stats) {
-    if(err) throw new gutil.PluginError("webpack", err);
-    gutil.log("[webpack]", stats.toString({
-        chunks: false
+    if (err) throw new gutil.PluginError('webpack', err);
+    gutil.log('[webpack]', stats.toString({
+      chunks: false
     }));
     cb();
   });

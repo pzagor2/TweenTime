@@ -159,15 +159,13 @@ class Editor {
   }
 
   update() {
-    if (!this.timelineService.isReady()) {
-      return;
+    if (this.timelineService.isReady()) {
+      var time = this.timer.time[0];
+      var time_changed = this.lastTime === time ? false : true;
+
+      this.render(time, time_changed);
+      this.lastTime = this.timer.time[0];
     }
-
-    var time = this.timer.time[0];
-    var time_changed = this.lastTime === time ? false : true;
-
-    this.render(time, time_changed);
-    this.lastTime = this.timer.time[0];
     window.requestAnimationFrame(() => this.update());
   }
 }

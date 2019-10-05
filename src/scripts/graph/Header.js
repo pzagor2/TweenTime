@@ -79,6 +79,11 @@ export default class Header {
 
   // domain = [0,280070]
   setHeaderDomain(domain) {
+    if(domain && domain[0] === this.initialDomain[0] && domain[1] === this.initialDomain[1]) {
+      //skip update if it's unnecessary (because it seems to be slow sometimes)
+      return;
+    }
+
     this.initialDomain = domain;
     this.setDomain(this.initialDomain);
   }

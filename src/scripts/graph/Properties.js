@@ -234,11 +234,37 @@ export default class Properties {
       return `<tspan class="keyframe-value-input">${_.round(valPercentage, 2)}</tspan>%`;
     }
 
+    if(d.name === 'video' && d._line) {
+      if(val === '') {
+        return '';
+      }
+
+      const videoInfo = this.timeline.editor.timelineService.getVideoAnimationInfo(d._line.id);
+      return `<tspan class="keyframe-value-input">${formatSeconds(val, videoInfo.duration)} / ${formatSeconds(videoInfo.duration, videoInfo.duration)}</tspan>`;
+    }
+
     if(typeof val === 'number') {
       return `<tspan class="keyframe-value-input">${_.round(val, 2)}°</tspan>`;
     }
 
     return val;
+
+	function formatSeconds(seconds, maxSeconds) {
+		seconds = _.round(seconds, 2);
+		const minutes = Math.floor(seconds / 60);
+		const hours = Math.floor(minutes / 60);
+
+		let str = '';
+		const ONE_HOUR = 60 * 60;
+		if(hours >= 1 || maxSeconds >= ONE_HOUR) {
+			str = String(hours).padStart(2, '0') + ':';
+		}
+
+		return str
+			 + String(minutes - (hours * 60)).padStart(2, '0')
+			 + ':'
+			 + String(seconds - (minutes * 60)).padStart(2, '0');
+	}
   }
 
   /**

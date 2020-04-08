@@ -250,7 +250,6 @@ export default class Properties {
     return val;
 
 	function formatSeconds(seconds, maxSeconds) {
-		seconds = _.round(seconds, 2);
 		const minutes = Math.floor(seconds / 60);
 		const hours = Math.floor(minutes / 60);
 
@@ -260,10 +259,19 @@ export default class Properties {
 			str = String(hours).padStart(2, '0') + ':';
 		}
 
+		let secondsString = String(_.round(seconds - (minutes * 60), 2));
+		if(secondsString.indexOf('.') !== -1) {
+			//if the value has decimals, we need to use a different string length
+			secondsString = secondsString.padStart(5, '0');
+		}
+		else {
+			secondsString = secondsString.padStart(2, '0');
+		}
+
 		return str
 			 + String(minutes - (hours * 60)).padStart(2, '0')
 			 + ':'
-			 + String(seconds - (minutes * 60)).padStart(2, '0');
+			 + String(secondsString);
 	}
   }
 

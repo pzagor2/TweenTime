@@ -271,7 +271,7 @@ export default class Properties {
 		return str
 			 + String(minutes - (hours * 60)).padStart(2, '0')
 			 + ':'
-			 + String(secondsString);
+			 + secondsString;
 	}
   }
 

@@ -199,12 +199,19 @@ export default class Properties {
   }
 
   keyframeValueHTML(d) {
-
     const millis = this.timeline.timer.last_time;
     const seconds = millis / 1000;
     const prevKey = Utils.getPreviousKey(d.keys, seconds);
     const currentKey = d.keys.find(k => k.time * 1000 === millis);
     const val = currentKey ? currentKey.value : '';
+
+    if(d._line && d._line.id === 'internal:events') {
+      if(!currentKey) {
+        return '';
+      }
+
+      return `${val.length} event${val.length === 1 ? '' : 's'}`;
+    }
 
     if(d.name === 'size' && val !== '') {
       // Sometimes _line is undefined, I noticed it while editor/creative was initaly loading
